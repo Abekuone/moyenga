@@ -54,6 +54,7 @@ model User {
   refreshTokenHash String?
   isActive         Boolean @default(true)
 
+  cart    Cart?
   orders  Order[]
   reviews Review[]
 
@@ -93,6 +94,7 @@ model Product {
   images     ProductImage[]
   reviews    Review[]
   orderItems OrderItem[]
+  cartItems  CartItem[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -123,16 +125,61 @@ model Review {
   @@map("reviews")
 }
 
+// ------------------------------
+// Panier
+// ------------------------------
+
+model Cart {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  items CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id     String @id @default(uuid())
+  cartId String
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  quantity Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId])
+  @@map("cart_items")
+}
+
+// ------------------------------
+// Commandes
+// ------------------------------
+
 model Order {
-  id        String      @id @default(uuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  status    OrderStatus @default(PENDING)
-  total     Decimal     @db.Decimal(10, 2)
-  items     OrderItem[]
-  payment   Payment?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  status OrderStatus @default(PENDING)
+  total  Decimal     @db.Decimal(10, 2)
+
+  shippingAddress String?
+  shippingPhone   String?
+  notes           String?
+
+  items   OrderItem[]
+  payment Payment?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("orders")
 }

@@ -12,6 +12,8 @@ import { MailModule } from './modules/mail/mail.module.js';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from './modules/auth/guards/roles.guard.js';
+import { OrdersModule } from './modules/orders/orders.module.js';
+import { CartModule } from './modules/cart/cart.module.js';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { RolesGuard } from './modules/auth/guards/roles.guard.js';
     ProductsModule,
     AuthModule,
     MailModule,
+    OrdersModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [

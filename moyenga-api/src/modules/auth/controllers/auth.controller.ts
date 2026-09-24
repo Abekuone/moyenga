@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { AuthService } from '../services/auth.service.js';
-import { Role } from '../../../generated/prisma/client.js';
+import { Role } from '../../prisma/prisma-client.js';
 import { RegisterDto } from '../dtos/register.dto.js';
 import { Public } from '../decorators/public.decorator.js';
 import { LoginDto } from '../dtos/login.dto.js';

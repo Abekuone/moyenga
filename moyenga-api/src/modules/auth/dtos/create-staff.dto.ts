@@ -7,7 +7,7 @@ import {
   MinLength,
   ValidateIf,
 } from 'class-validator';
-import { Role } from '../../../generated/prisma/client.js';
+import { Role } from '../../prisma/prisma-client.js';
 
 export class CreateStaffDto {
   @ValidateIf((o) => !o.phone)

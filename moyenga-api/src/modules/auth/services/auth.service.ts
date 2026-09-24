@@ -9,8 +9,9 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
-import { Role, User } from '../../../generated/prisma/client.js';
-import { PrismaService } from '../../prisma/services/prisma/prisma.service.js';
+import type ms from 'ms';
+import { Role, User } from '../../prisma/prisma-client.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
 import { MailService } from '../../mail/mail.service.js';
 import { RegisterDto } from '../dtos/register.dto.js';
 import { CreateStaffDto } from '../dtos/create-staff.dto.js';
@@ -172,7 +173,7 @@ export class AuthService {
     let payload: JwtPayload;
     try {
       payload = await this.jwtService.verifyAsync<JwtPayload>(refreshToken, {
-        secret: this.configService.get<string>('jwt.refreshSecret'),
+        secret: this.configService.getOrThrow<string>('jwt.refreshSecret'),
       });
     } catch {
       throw new UnauthorizedException('Refresh token invalide ou expiré');
@@ -205,15 +206,21 @@ export class AuthService {
   // ---------------------------------------------------------------------
   private async issueTokens(user: User) {
     const payload: JwtPayload = { sub: user.id, role: user.role };
+    const accessExpiresIn = this.configService.getOrThrow<string>(
+      'jwt.expiresIn',
+    ) as ms.StringValue;
+    const refreshExpiresIn = this.configService.getOrThrow<string>(
+      'jwt.refreshExpiresIn',
+    ) as ms.StringValue;
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('jwt.secret'),
-      expiresIn: this.configService.get<string>('jwt.expiresIn'),
+      secret: this.configService.getOrThrow<string>('jwt.secret'),
+      expiresIn: accessExpiresIn,
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('jwt.refreshSecret'),
-      expiresIn: this.configService.get<string>('jwt.refreshExpiresIn'),
+      secret: this.configService.getOrThrow<string>('jwt.refreshSecret'),
+      expiresIn: refreshExpiresIn,
     });
 
     const refreshTokenHash = await bcrypt.hash(refreshToken, 10);
@@ -251,7 +258,12 @@ export class AuthService {
   }
 
   private sanitizeUser(user: User) {
-    const { password, refreshTokenHash, emailVerificationToken, ...safe } = user;
+    const {
+      password: _password,
+      refreshTokenHash: _refreshTokenHash,
+      emailVerificationToken: _emailVerificationToken,
+      ...safe
+    } = user;
     return safe;
   }
 }

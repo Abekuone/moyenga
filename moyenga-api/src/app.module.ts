@@ -19,9 +19,6 @@ import { RolesGuard } from './modules/auth/guards/roles.guard.js';
       isGlobal: true,
       load: [configuration],
       validationSchema,
-      validationOptions: {
-        abortEarly: true,
-      },
     }),
     PrismaModule,
     CategoriesModule,
@@ -30,11 +27,10 @@ import { RolesGuard } from './modules/auth/guards/roles.guard.js';
     MailModule,
   ],
   controllers: [AppController],
-  providers: [AppService,
-  // Toute route est protégée par défaut (JWT requis) sauf @Public()
-  { provide: APP_GUARD, useClass: JwtAuthGuard },
-  // Vérifie ensuite le rôle si @Roles(...) est présent sur la route
-  { provide: APP_GUARD, useClass: RolesGuard },
+  providers: [
+    AppService,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })
 export class AppModule {}

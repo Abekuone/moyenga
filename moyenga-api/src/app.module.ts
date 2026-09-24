@@ -8,6 +8,10 @@ import { ProductsModule } from './modules/products/products.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import configuration from './configs/configuration.js';
 import { validationSchema } from './configs/validation.schema.js';
+import { MailModule } from './modules/mail/mail.module.js';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard.js';
+import { RolesGuard } from './modules/auth/guards/roles.guard.js';
 
 @Module({
   imports: [
@@ -15,13 +19,22 @@ import { validationSchema } from './configs/validation.schema.js';
       isGlobal: true,
       load: [configuration],
       validationSchema,
+      validationOptions: {
+        abortEarly: true,
+      },
     }),
     PrismaModule,
     CategoriesModule,
     ProductsModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+  // Toute route est protégée par défaut (JWT requis) sauf @Public()
+  { provide: APP_GUARD, useClass: JwtAuthGuard },
+  // Vérifie ensuite le rôle si @Roles(...) est présent sur la route
+  { provide: APP_GUARD, useClass: RolesGuard },
+  ],
 })
 export class AppModule {}

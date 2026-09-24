@@ -1,0 +1,25 @@
+<section>
+    <h2>Connexion</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>
+        Email ou téléphone
+        <input type="text" formControlName="identifier" autocomplete="username" />
+      </label>
+
+      <label>
+        Mot de passe
+        <input type="password" formControlName="password" autocomplete="current-password" />
+      </label>
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="form.invalid || loading()">
+        {{ loading() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p>Pas encore de compte ? <a routerLink="/auth/register">S'inscrire</a></p>
+</section>

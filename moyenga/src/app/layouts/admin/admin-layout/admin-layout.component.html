@@ -1,0 +1,25 @@
+<div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar__logo">Moyenga Admin</div>
+      <nav>
+        <a routerLink="/admin">Tableau de bord</a>
+        <a routerLink="/admin/products">Produits</a>
+        <a routerLink="/admin/categories">Catégories</a>
+        <a routerLink="/admin/orders">Commandes</a>
+        @if (authService.currentUser()?.role === 'SUPERADMIN') {
+          <a routerLink="/admin/staff">Comptes staff</a>
+        }
+      </nav>
+    </aside>
+
+    <div class="admin-content">
+      <header class="admin-topbar">
+        <span>{{ authService.currentUser()?.firstName }}</span>
+        <button type="button" (click)="authService.logout()">Déconnexion</button>
+      </header>
+
+      <main>
+        <router-outlet />
+      </main>
+    </div>
+  </div>

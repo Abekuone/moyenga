@@ -1,0 +1,7 @@
+<section>
+    <h1>Mon compte</h1>
+    @if (authService.currentUser(); as user) {
+    <p>{{ user.firstName }} {{ user.lastName }}</p>
+    <p>{{ user.email || user.phone }}</p>
+    }
+</section>

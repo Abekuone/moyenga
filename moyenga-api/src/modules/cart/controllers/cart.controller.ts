@@ -1,11 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { Roles } from '../../auth/decorators/roles.decorator.js';
-import { Role } from '../../prisma/prisma-client.js';
 import { CartService } from '../services/cart.service.js';
+import { Role } from '../../../generated/prisma/client.js';
+import { Roles } from '../../auth/decorators/roles.decorator.js';
 import { CurrentUser } from '../../auth/dtos/current-user.decorator.js';
 import { AddCartItemDto } from '../dtos/add-cart-item.dto.js';
 import { UpdateCartItemDto } from '../dtos/update-cart-item.dto.js';
-
 
 @Roles(Role.CLIENT)
 @Controller('cart')

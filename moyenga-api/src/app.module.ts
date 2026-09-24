@@ -14,6 +14,10 @@ import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from './modules/auth/guards/roles.guard.js';
 import { OrdersModule } from './modules/orders/orders.module.js';
 import { CartModule } from './modules/cart/cart.module.js';
+import { PaymentsModule } from './modules/payments/payments.module.js';
+import { UploadsModule } from './modules/uploads/uploads.module.js';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -29,6 +33,12 @@ import { CartModule } from './modules/cart/cart.module.js';
     MailModule,
     OrdersModule,
     CartModule,
+    PaymentsModule,
+    UploadsModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+    }),
   ],
   controllers: [AppController],
   providers: [

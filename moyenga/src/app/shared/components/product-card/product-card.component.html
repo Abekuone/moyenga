@@ -1,0 +1,51 @@
+<article class="product-card">
+  <a [routerLink]="['/produits', product().slug]" class="product-card__media">
+    @if (product().imageUrl) {
+      <img [src]="product().imageUrl" [alt]="product().name" loading="lazy" />
+    } @else {
+      <div class="product-card__placeholder">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 16l5-5 4 4 5-6 4 5" />
+        </svg>
+      </div>
+    }
+
+    @if (product().stock === 0) {
+      <span class="product-card__tag product-card__tag--out">Rupture de stock</span>
+    } @else if (product().stock <= 5) {
+      <span class="product-card__tag product-card__tag--low">Stock limité</span>
+    }
+  </a>
+
+  <div class="product-card__body">
+    <a [routerLink]="['/produits', product().slug]" class="product-card__name">
+      {{ product().name }}
+    </a>
+
+    @if (product().averageRating) {
+      <div class="product-card__rating">
+        <span aria-hidden="true">★</span>
+        <span>{{ product().averageRating }}</span>
+        <span class="product-card__rating-count">({{ product().reviewsCount }})</span>
+      </div>
+    }
+
+    <div class="product-card__footer">
+      <span class="product-card__price">{{ formatPrice(product().price) }}</span>
+      <button
+        type="button"
+        class="product-card__add"
+        [disabled]="product().stock === 0"
+        (click)="addToCart.emit(product().id)"
+        aria-label="Ajouter au panier"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="19" cy="21" r="1" />
+          <path d="M2.5 3h2l2.5 12.5h11L21 8H6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</article>

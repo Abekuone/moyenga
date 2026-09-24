@@ -1,48 +1,64 @@
-<section>
-    <h2>Créer un compte</h2>
+<section class="auth-form">
+  <h2>Créer un compte</h2>
 
-    @if (successMessage()) {
-      <p class="success">{{ successMessage() }}</p>
-    } @else {
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label>
+  @if (successMessage()) {
+    <p class="auth-form__success">{{ successMessage() }}</p>
+  } @else {
+    <p class="auth-form__subtitle">Rejoignez Moyenga en quelques secondes.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form__form">
+      <div class="auth-form__row">
+        <label class="field">
           Prénom
-          <input type="text" formControlName="firstName" />
+          <input type="text" formControlName="firstName" class="form-control" />
         </label>
 
-        <label>
+        <label class="field">
           Nom
-          <input type="text" formControlName="lastName" />
+          <input type="text" formControlName="lastName" class="form-control" />
         </label>
+      </div>
 
-        <label>
-          Email
-          <input type="email" formControlName="email" autocomplete="email" />
-        </label>
+      <label class="field">
+        Email
+        <input type="email" formControlName="email" autocomplete="email" class="form-control" />
+      </label>
 
-        <label>
-          Téléphone
-          <input type="tel" formControlName="phone" placeholder="+22670000000" />
-        </label>
+      <label class="field">
+        Téléphone
+        <input
+          type="tel"
+          formControlName="phone"
+          class="form-control"
+          placeholder="+22670000000"
+        />
+      </label>
 
-        @if (form.hasError('identifierRequired') && form.touched) {
-          <p class="error">Renseigne au moins un email ou un numéro de téléphone.</p>
-        }
+      @if (form.hasError('identifierRequired') && form.touched) {
+        <p class="form-error">Renseigne au moins un email ou un numéro de téléphone.</p>
+      }
 
-        <label>
-          Mot de passe
-          <input type="password" formControlName="password" autocomplete="new-password" />
-        </label>
+      <label class="field">
+        Mot de passe
+        <input
+          type="password"
+          formControlName="password"
+          autocomplete="new-password"
+          class="form-control"
+        />
+      </label>
 
-        @if (errorMessage()) {
-          <p class="error">{{ errorMessage() }}</p>
-        }
+      @if (errorMessage()) {
+        <p class="form-error">{{ errorMessage() }}</p>
+      }
 
-        <button type="submit" [disabled]="form.invalid || loading()">
-          {{ loading() ? 'Création...' : "S'inscrire" }}
-        </button>
-      </form>
-    }
+      <button type="submit" class="btn btn-primary auth-form__submit" [disabled]="form.invalid || loading()">
+        {{ loading() ? 'Création...' : "S'inscrire" }}
+      </button>
+    </form>
+  }
 
-    <p>Déjà un compte ? <a routerLink="/auth/login">Se connecter</a></p>
+  <p class="auth-form__switch">
+    Déjà un compte ? <a routerLink="/auth/login">Se connecter</a>
+  </p>
 </section>

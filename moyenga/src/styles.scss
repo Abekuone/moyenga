@@ -1,48 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
-
-@use 'tailwindcss';
-// ============================================================
-// STYLE — Base globale Moyenga
-// S'appuie sur tokens.scss pour les couleurs et espacements
-// ============================================================
-
 @use 'tokens' as *;
+// ============================================================
+// STYLE GLOBAL — Moyenga
+// ============================================================
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
-// --------------------------------------------------------------
-// Reset minimal
-// --------------------------------------------------------------
-*,
-*::before,
-*::after {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  color: var(--color-text);
-  background-color: var(--color-bg-subtle);
-  line-height: 1.5;
+  padding: 0;
+  min-height: 100%;
 }
 
-a {
-  color: var(--color-secondary);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--blue-dark);
-    text-decoration: underline;
-  }
+body {
+  font-family: var(--font-body);
+  font-size: $font-size-base;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-display);
   color: var(--blue-darker);
-  font-weight: $font-weight-semibold;
-  margin: 0 0 $spacing-4;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--blue-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--blue-dark);
+  }
+}
+
+button {
+  font-family: inherit;
+}
+
+// Focus clavier visible partout — accessibilité
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--orange-focus);
+  border-radius: 4px;
 }
 
 // --------------------------------------------------------------
@@ -53,18 +72,14 @@ h4 {
   align-items: center;
   justify-content: center;
   gap: $spacing-2;
-  padding: $spacing-3 $spacing-6;
+  padding: 0.7rem 1.5rem;
   border: none;
   border-radius: var(--radius-md);
   font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
-
-  &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--color-primary-focus-ring);
-  }
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
 
   &:disabled {
     opacity: 0.5;
@@ -72,143 +87,131 @@ h4 {
   }
 }
 
-// Bouton principal — orange (CTA, "Ajouter au panier", "Commander")
 .btn-primary {
-  background-color: var(--color-primary);
+  background-color: var(--orange);
   color: var(--white);
 
   &:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
+    background-color: var(--orange-hover);
   }
-
   &:active:not(:disabled) {
-    background-color: var(--color-primary-active);
+    background-color: var(--orange-active);
   }
 }
 
-// Bouton secondaire — bleu (actions de navigation, backoffice)
 .btn-secondary {
-  background-color: var(--color-secondary);
+  background-color: var(--blue-primary);
   color: var(--white);
 
   &:hover:not(:disabled) {
-    background-color: var(--color-secondary-hover);
+    background-color: var(--blue-dark);
   }
-
   &:active:not(:disabled) {
-    background-color: var(--color-secondary-active);
+    background-color: var(--blue-darker);
   }
 }
 
-// Bouton contour — usage discret
 .btn-outline {
   background-color: transparent;
-  color: var(--color-primary);
-  border: 1.5px solid var(--color-primary);
+  color: var(--blue-darker);
+  border: 1.5px solid var(--color-border);
 
   &:hover:not(:disabled) {
-    background-color: var(--color-primary);
-    color: var(--white);
+    border-color: var(--blue-darker);
+    background-color: var(--gray-50);
+  }
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--white);
+
+  &:hover:not(:disabled) {
+    background-color: rgba($white, 0.12);
   }
 }
 
 // --------------------------------------------------------------
 // Champs de formulaire
 // --------------------------------------------------------------
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
 .form-control {
   width: 100%;
-  padding: $spacing-3;
-  border: 1px solid var(--color-border);
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
-  font-size: $font-size-sm;
+  font-size: $font-size-base;
+  font-family: var(--font-body);
   color: var(--color-text);
   background-color: var(--white);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
   &:focus {
     outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-focus-ring);
+    border-color: var(--blue-primary);
+    box-shadow: 0 0 0 3px rgba($blue-primary, 0.15);
+  }
+
+  &.is-invalid {
+    border-color: var(--danger);
   }
 }
 
+.form-error {
+  font-size: $font-size-xs;
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.form-success {
+  font-size: $font-size-sm;
+  color: var(--success);
+  font-weight: 500;
+}
+
 // --------------------------------------------------------------
-// Cartes produit / catégorie
+// Cartes
 // --------------------------------------------------------------
 .card {
   background-color: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
-
-  &:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
 // --------------------------------------------------------------
-// Badges d'état (commande, stock, statut)
+// Badges
 // --------------------------------------------------------------
 .badge {
-  display: inline-block;
-  padding: $spacing-1 $spacing-3;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
   border-radius: var(--radius-full);
   font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
+  font-weight: 600;
 
   &--success {
     background-color: rgba($success, 0.12);
     color: $success;
   }
-
   &--warning {
-    background-color: rgba($warning, 0.15);
-    color: darken($warning, 20%);
+    background-color: rgba($warning, 0.14);
+    color: $warning;
   }
-
   &--danger {
     background-color: rgba($danger, 0.1);
     color: $danger;
   }
-
   &--primary {
     background-color: rgba($orange, 0.12);
     color: $orange-active;
   }
-}
-
-// --------------------------------------------------------------
-// Header / navbar — fond bleu foncé de marque
-// --------------------------------------------------------------
-.navbar {
-  background-color: var(--blue-darker);
-  color: var(--white);
-  padding: $spacing-4 $spacing-8;
-
-  a {
-    color: var(--white);
-
-    &:hover {
-      color: var(--orange-focus);
-      text-decoration: none;
-    }
-  }
-}
-
-// --------------------------------------------------------------
-// Utilitaires de couleur
-// --------------------------------------------------------------
-.text-primary {
-  color: var(--color-primary) !important;
-}
-.text-secondary {
-  color: var(--color-secondary) !important;
-}
-.bg-primary {
-  background-color: var(--color-primary) !important;
-}
-.bg-secondary {
-  background-color: var(--color-secondary) !important;
 }

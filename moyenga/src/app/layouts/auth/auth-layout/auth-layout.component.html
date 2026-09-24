@@ -1,6 +1,20 @@
 <div class="auth-layout">
-    <div class="auth-layout__panel">
-      <h1>Moyenga</h1>
-      <router-outlet />
+  <div class="auth-layout__brand">
+    <a routerLink="/" class="auth-layout__logo">Moyenga</a>
+
+    <div class="auth-layout__quote">
+      <h1>Le marché continue, même de chez vous.</h1>
+      <p>Commandez auprès des commerces que vous connaissez, livrés où vous êtes.</p>
     </div>
+
+    <svg class="auth-layout__pattern" width="220" height="220" viewBox="0 0 220 220" fill="none">
+      <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.08)" />
+      <circle cx="150" cy="90" r="60" fill="rgba(236,109,15,0.18)" />
+      <circle cx="60" cy="180" r="30" fill="rgba(255,255,255,0.06)" />
+    </svg>
   </div>
+
+  <div class="auth-layout__panel">
+    <router-outlet />
+  </div>
+</div>

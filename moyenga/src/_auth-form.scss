@@ -1,0 +1,56 @@
+// Partiel partagé — importé par login et register
+// @use 'src/styles/auth-form' as *;
+@use './tokens' as *;
+
+.auth-form {
+  width: 100%;
+  max-width: 380px;
+
+  h2 {
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-2;
+  }
+}
+
+.auth-form__subtitle {
+  color: var(--color-text-muted);
+  font-size: $font-size-sm;
+  margin-bottom: $spacing-6;
+}
+
+.auth-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.auth-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-4;
+
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-form__submit {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: $spacing-2;
+}
+
+.auth-form__switch {
+  margin-top: $spacing-6;
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
+}
+
+.auth-form__success {
+  background-color: rgba($success, 0.08);
+  border: 1px solid rgba($success, 0.25);
+  border-radius: var(--radius-sm);
+  padding: $spacing-4;
+  color: $success;
+  font-size: $font-size-sm;
+}

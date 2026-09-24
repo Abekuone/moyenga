@@ -1,0 +1,73 @@
+@use '../../../../tokens' as *;
+
+.auth-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-layout__brand {
+  position: relative;
+  background-color: var(--blue-darker);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $spacing-8;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    padding: $spacing-6;
+    min-height: 240px;
+  }
+}
+
+.auth-layout__logo {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: $font-size-xl;
+  font-weight: 800;
+  color: var(--white);
+  width: fit-content;
+}
+
+.auth-layout__quote {
+  position: relative;
+  z-index: 1;
+  max-width: 26ch;
+
+  h1 {
+    color: var(--white);
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-3;
+
+    @media (max-width: 900px) {
+      font-size: $font-size-xl;
+    }
+  }
+
+  p {
+    color: rgba($white, 0.75);
+    font-size: $font-size-sm;
+    line-height: 1.6;
+  }
+}
+
+.auth-layout__pattern {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+}
+
+.auth-layout__panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-8 $spacing-6;
+  background-color: var(--white);
+}

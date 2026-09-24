@@ -1,0 +1,119 @@
+@use '../../../../tokens' as *;
+
+.admin-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --------------------------------------------------------------
+// Sidebar
+// --------------------------------------------------------------
+.admin-sidebar {
+  background-color: var(--blue-darker);
+  color: rgba($white, 0.85);
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-6 $spacing-4;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+
+.admin-sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: $font-size-lg;
+  color: var(--white);
+  padding: 0 $spacing-2 $spacing-6;
+}
+
+.admin-sidebar__badge {
+  font-family: var(--font-body);
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: var(--orange);
+  background-color: rgba($orange, 0.15);
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+
+  a {
+    padding: 0.65rem $spacing-3;
+    border-radius: var(--radius-sm);
+    color: rgba($white, 0.75);
+    font-size: $font-size-sm;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background-color: rgba($white, 0.06);
+      color: var(--white);
+    }
+
+    &.is-active {
+      background-color: rgba($orange, 0.14);
+      border-left-color: var(--orange);
+      color: var(--white);
+    }
+  }
+}
+
+// --------------------------------------------------------------
+// Contenu
+// --------------------------------------------------------------
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-8;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.admin-topbar__user {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.admin-topbar__avatar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--blue-primary);
+  color: var(--white);
+  font-size: $font-size-sm;
+  font-weight: 700;
+}
+
+.admin-main {
+  flex: 1;
+  padding: $spacing-8;
+  background-color: var(--color-bg-subtle);
+}

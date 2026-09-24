@@ -1,0 +1,141 @@
+@use '../../../../tokens' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// --------------------------------------------------------------
+// Header
+// --------------------------------------------------------------
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background-color: var(--blue-darker);
+  border-bottom: 3px solid var(--orange);
+}
+
+.main-header__bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-2 $spacing-6;
+}
+
+.main-header__logo {
+  font-family: var(--font-display);
+  font-size: $font-size-xl;
+  font-weight: 800;
+  color: var(--white);
+
+  &:hover {
+    color: var(--white);
+  }
+}
+
+.main-header__nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-6;
+}
+
+.main-header__link {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: rgba($white, 0.85);
+  font-size: $font-size-sm;
+  font-weight: 500;
+  padding: $spacing-2 0;
+  border-bottom: 2px solid transparent;
+
+  &:hover,
+  &.is-active {
+    color: var(--white);
+    border-bottom-color: var(--orange);
+  }
+}
+
+.main-header__cta {
+  padding: 0.55rem 1.3rem;
+}
+
+.main-header__logout {
+  font-size: $font-size-sm;
+  padding: 0.5rem 0.9rem;
+}
+
+// --------------------------------------------------------------
+// Contenu
+// --------------------------------------------------------------
+.main-content {
+  flex: 1;
+}
+
+// --------------------------------------------------------------
+// Footer
+// --------------------------------------------------------------
+.main-footer {
+  background-color: var(--blue-darker);
+  color: rgba($white, 0.75);
+  margin-top: $spacing-12;
+}
+
+.main-footer__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: $spacing-8;
+  padding: $spacing-12 $spacing-6 $spacing-8;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main-footer__logo {
+  font-family: var(--font-display);
+  font-size: $font-size-lg;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: $spacing-2;
+}
+
+.main-footer__tagline {
+  max-width: 32ch;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+}
+
+.main-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  h4 {
+    color: var(--white);
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-1;
+  }
+
+  a {
+    color: rgba($white, 0.75);
+    font-size: $font-size-sm;
+
+    &:hover {
+      color: var(--orange-focus);
+    }
+  }
+}
+
+.main-footer__bottom {
+  border-top: 1px solid rgba($white, 0.12);
+  padding: $spacing-4 $spacing-6;
+  text-align: center;
+  font-size: $font-size-xs;
+}

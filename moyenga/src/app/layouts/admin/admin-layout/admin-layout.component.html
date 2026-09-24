@@ -1,25 +1,36 @@
 <div class="admin-layout">
-    <aside class="admin-sidebar">
-      <div class="admin-sidebar__logo">Moyenga Admin</div>
-      <nav>
-        <a routerLink="/admin">Tableau de bord</a>
-        <a routerLink="/admin/products">Produits</a>
-        <a routerLink="/admin/categories">Catégories</a>
-        <a routerLink="/admin/orders">Commandes</a>
-        @if (authService.currentUser()?.role === 'SUPERADMIN') {
-          <a routerLink="/admin/staff">Comptes staff</a>
-        }
-      </nav>
-    </aside>
-
-    <div class="admin-content">
-      <header class="admin-topbar">
-        <span>{{ authService.currentUser()?.firstName }}</span>
-        <button type="button" (click)="authService.logout()">Déconnexion</button>
-      </header>
-
-      <main>
-        <router-outlet />
-      </main>
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo">
+      <span>Moyenga</span>
+      <span class="admin-sidebar__badge">Admin</span>
     </div>
+
+    <nav class="admin-sidebar__nav">
+      <a routerLink="/admin" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+        Tableau de bord
+      </a>
+      <a routerLink="/admin/products" routerLinkActive="is-active">Produits</a>
+      <a routerLink="/admin/categories" routerLinkActive="is-active">Catégories</a>
+      <a routerLink="/admin/orders" routerLinkActive="is-active">Commandes</a>
+      @if (authService.currentUser()?.role === 'SUPERADMIN') {
+        <a routerLink="/admin/staff" routerLinkActive="is-active">Comptes staff</a>
+      }
+    </nav>
+  </aside>
+
+  <div class="admin-content">
+    <header class="admin-topbar">
+      <div class="admin-topbar__user">
+        <span class="admin-topbar__avatar">
+          {{ authService.currentUser()?.firstName?.charAt(0) }}
+        </span>
+        <span>{{ authService.currentUser()?.firstName }}</span>
+      </div>
+      <button type="button" class="btn btn-outline" (click)="authService.logout()">Déconnexion</button>
+    </header>
+
+    <main class="admin-main">
+      <router-outlet />
+    </main>
   </div>
+</div>

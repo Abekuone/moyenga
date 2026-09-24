@@ -1,39 +1,39 @@
 // ============================================================
 // TOKENS — Design system Moyenga
-// Variables de couleurs, espacements et typographie
 // ============================================================
 
 // --------------------------------------------------------------
-// Couleurs — variables SCSS (utilisables dans les calculs Sass)
+// Couleurs de marque
 // --------------------------------------------------------------
 $orange: #ec6d0f;
 $orange-hover: #e16505;
 $orange-active: #e16505;
 $orange-focus: #e88827;
 
-$blue-primary: #145a92; // bleu principal
-$blue-dark: #0d3a5c; // bleu foncé — hover / fonds sombres
-$blue-darker: #0a376d; // bleu très foncé — texte sur fond clair, footer
+$blue-primary: #145a92;
+$blue-dark: #0d3a5c;
+$blue-darker: #0a376d;
 
 $white: #ffffff;
 $black: #000000;
 
-$gray-50: #f9fafb;
-$gray-100: #f3f4f6;
-$gray-200: #e5e7eb;
-$gray-300: #d1d5db;
-$gray-500: #6b7280;
-$gray-700: #374151;
-$gray-900: #111827;
+$gray-50: #f8f9fb;
+$gray-100: #f1f3f6;
+$gray-200: #e4e7ec;
+$gray-300: #d0d5dd;
+$gray-500: #667085;
+$gray-700: #344054;
+$gray-900: #1a2233;
 
 $success: #1e8e3e;
-$warning: #f2b705;
+$warning: #b7791f;
 $danger: #d92d20;
 
 // --------------------------------------------------------------
-// Typographie
+// Typographie — Sora (titres) / Inter (texte courant)
 // --------------------------------------------------------------
-$font-family-base: 'Inter', 'Segoe UI', Arial, sans-serif;
+$font-display: 'Sora', 'Segoe UI', sans-serif;
+$font-body: 'Inter', 'Segoe UI', sans-serif;
 
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
@@ -41,14 +41,10 @@ $font-size-base: 1rem;
 $font-size-lg: 1.125rem;
 $font-size-xl: 1.5rem;
 $font-size-2xl: 2rem;
-
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
+$font-size-3xl: 2.75rem;
 
 // --------------------------------------------------------------
-// Espacements
+// Espacements / rayons / ombres
 // --------------------------------------------------------------
 $spacing-1: 0.25rem;
 $spacing-2: 0.5rem;
@@ -58,34 +54,28 @@ $spacing-6: 1.5rem;
 $spacing-8: 2rem;
 $spacing-12: 3rem;
 
-// --------------------------------------------------------------
-// Rayons / ombres
-// --------------------------------------------------------------
-$radius-sm: 4px;
-$radius-md: 8px;
-$radius-lg: 16px;
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 20px;
 $radius-full: 9999px;
 
-$shadow-sm: 0 1px 2px rgba($black, 0.06);
-$shadow-md: 0 4px 12px rgba($black, 0.08);
-$shadow-lg: 0 8px 24px rgba($black, 0.12);
+$shadow-sm: 0 1px 2px rgba($black, 0.05);
+$shadow-md: 0 8px 24px rgba($blue-darker, 0.08);
+$shadow-lg: 0 16px 40px rgba($blue-darker, 0.14);
 
 // --------------------------------------------------------------
-// Exposition en CSS custom properties (utilisable en JS/CSS pur)
+// Exposition en CSS custom properties
 // --------------------------------------------------------------
 :root {
-  // Marque — orange
   --orange: #{$orange};
   --orange-hover: #{$orange-hover};
   --orange-active: #{$orange-active};
   --orange-focus: #{$orange-focus};
 
-  // Marque — bleu
   --blue-primary: #{$blue-primary};
   --blue-dark: #{$blue-dark};
   --blue-darker: #{$blue-darker};
 
-  // Neutres
   --white: #{$white};
   --black: #{$black};
   --gray-50: #{$gray-50};
@@ -96,20 +86,9 @@ $shadow-lg: 0 8px 24px rgba($black, 0.12);
   --gray-700: #{$gray-700};
   --gray-900: #{$gray-900};
 
-  // États
   --success: #{$success};
   --warning: #{$warning};
   --danger: #{$danger};
-
-  // Sémantique
-  --color-primary: var(--orange);
-  --color-primary-hover: var(--orange-hover);
-  --color-primary-active: var(--orange-active);
-  --color-primary-focus-ring: var(--orange-focus);
-
-  --color-secondary: var(--blue-primary);
-  --color-secondary-hover: var(--blue-dark);
-  --color-secondary-active: var(--blue-darker);
 
   --color-text: var(--gray-900);
   --color-text-muted: var(--gray-500);
@@ -117,13 +96,14 @@ $shadow-lg: 0 8px 24px rgba($black, 0.12);
   --color-bg-subtle: var(--gray-50);
   --color-border: var(--gray-200);
 
-  // Rayons / ombres
   --radius-sm: #{$radius-sm};
   --radius-md: #{$radius-md};
   --radius-lg: #{$radius-lg};
-  --radius-full: #{$radius-full};
 
   --shadow-sm: #{$shadow-sm};
   --shadow-md: #{$shadow-md};
   --shadow-lg: #{$shadow-lg};
+
+  --font-display: #{$font-display};
+  --font-body: #{$font-body};
 }

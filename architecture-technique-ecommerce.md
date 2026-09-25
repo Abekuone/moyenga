@@ -1,4 +1,4 @@
-# Document d'Architecture Technique — Plateforme E-commerce
+# Document d'Architecture Technique - Plateforme E-commerce
 
 **Stack** : Angular (Frontend) · NestJS (Backend) · PostgreSQL · Prisma (ORM)
 
@@ -22,7 +22,7 @@ Architecture modulaire des deux côtés (feature-based), avec séparation claire
 
 ---
 
-## 2. Frontend — Angular
+## 2. Frontend - Angular
 
 ### 2.1 Arborescence proposée
 
@@ -66,7 +66,7 @@ src/app/
 │       ├── customers/
 │       └── dashboard/
 │
-├── store/ (optionnel — NgRx / Signals Store)
+├── store/ (optionnel - NgRx / Signals Store)
 │   ├── cart/
 │   ├── auth/
 │   └── catalog/
@@ -82,11 +82,11 @@ src/app/
 - **`features`** : un module par domaine métier, chargé en **lazy loading** via `loadChildren` pour limiter le bundle initial.
 - **`layouts`** : permet de servir un rendu différent selon le contexte (boutique publique vs back-office) sans dupliquer header/footer.
 - État global : `Signals` (Angular 17+) pour un état léger, ou **NgRx** si la complexité (panier synchronisé, filtres persistés, back-office) le justifie.
-- Communication API centralisée via des **services par feature** (`ProductService`, `OrderService`...) qui encapsulent les appels HTTP — jamais d'appel HTTP direct dans un composant.
+- Communication API centralisée via des **services par feature** (`ProductService`, `OrderService`...) qui encapsulent les appels HTTP - jamais d'appel HTTP direct dans un composant.
 
 ---
 
-## 3. Backend — NestJS
+## 3. Backend - NestJS
 
 ### 3.1 Arborescence proposée
 
@@ -147,7 +147,7 @@ src/
 ### 3.2 Principes clés
 
 - **Architecture modulaire par domaine** (Nest `Module`) : chaque module encapsule `controller` + `service` + `dto` + accès Prisma via injection du `PrismaService`.
-- **`PrismaService`** centralisé dans un `PrismaModule` global (`@Global()`), injecté partout — un seul point d'accès à la base.
+- **`PrismaService`** centralisé dans un `PrismaModule` global (`@Global()`), injecté partout - un seul point d'accès à la base.
 - **DTO + `class-validator`** systématiques pour valider les entrées (création produit, commande, etc.).
 - **Guards + Strategies** (`Passport JWT`) pour l'authentification, avec un `RolesGuard` pour distinguer `CLIENT` / `ADMIN` / `VENDEUR` selon les besoins.
 - **Filtres d'exception globaux** pour uniformiser le format des erreurs API.
@@ -156,7 +156,7 @@ src/
 
 ---
 
-## 4. Modèle de données (Prisma) — vue simplifiée
+## 4. Modèle de données (Prisma) - vue simplifiée
 
 ```prisma
 model User {
@@ -239,7 +239,7 @@ enum PaymentStatus {
 }
 ```
 
-> Ce schéma est un point de départ — à enrichir avec `Address`, `Wishlist`, `Coupon`, `ProductVariant` (tailles/couleurs) selon les besoins réels du catalogue.
+> Ce schéma est un point de départ - à enrichir avec `Address`, `Wishlist`, `Coupon`, `ProductVariant` (tailles/couleurs) selon les besoins réels du catalogue.
 
 ---
 

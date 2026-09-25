@@ -46,7 +46,7 @@ export class ProductsService {
   }
 
   // ---------------------------------------------------------------------
-  // Lecture — catalogue public (produits actifs uniquement)
+  // Lecture - catalogue public (produits actifs uniquement)
   // ---------------------------------------------------------------------
   async findAllPublic(filter: ProductFilterDto) {
     return this.findAll({ ...filter, isActive: true });
@@ -61,7 +61,7 @@ export class ProductsService {
   }
 
   // ---------------------------------------------------------------------
-  // Lecture — backoffice (tous les produits, filtre isActive optionnel)
+  // Lecture - backoffice (tous les produits, filtre isActive optionnel)
   // ---------------------------------------------------------------------
   async findAllAdmin(filter: ProductFilterDto) {
     return this.findAll(filter);
@@ -107,7 +107,7 @@ export class ProductsService {
   }
 
   // ---------------------------------------------------------------------
-  // Suppression — bloquée si le produit a déjà des commandes
+  // Suppression - bloquée si le produit a déjà des commandes
   // ---------------------------------------------------------------------
   async remove(id: string) {
     const product = await this.prisma.product.findUnique({
@@ -119,7 +119,7 @@ export class ProductsService {
 
     if (product._count.orderItems > 0) {
       throw new BadRequestException(
-        'Impossible de supprimer un produit ayant déjà des commandes — désactive-le plutôt (isActive: false)',
+        'Impossible de supprimer un produit ayant déjà des commandes - désactive-le plutôt (isActive: false)',
       );
     }
 

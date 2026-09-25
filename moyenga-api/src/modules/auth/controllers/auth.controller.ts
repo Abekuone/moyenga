@@ -69,7 +69,7 @@ export class AuthController {
     return user;
   }
 
-  // -------- Backoffice — réservé SUPERADMIN --------
+  // -------- Backoffice - réservé SUPERADMIN --------
 
   @Roles(Role.SUPERADMIN)
   @Post('staff')

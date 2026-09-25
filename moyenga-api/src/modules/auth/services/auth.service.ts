@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   // ---------------------------------------------------------------------
-  // Création de compte staff (ADMIN / GESTIONNAIRE) — réservé SUPERADMIN
+  // Création de compte staff (ADMIN / GESTIONNAIRE) - réservé SUPERADMIN
   // Voir AuthController: protégé par @Roles(Role.SUPERADMIN)
   // ---------------------------------------------------------------------
   async createStaff(dto: CreateStaffDto) {
@@ -139,7 +139,7 @@ export class AuthService {
   }
 
   // ---------------------------------------------------------------------
-  // Connexion — identifiant = email OU téléphone
+  // Connexion - identifiant = email OU téléphone
   // ---------------------------------------------------------------------
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findFirst({
@@ -191,7 +191,7 @@ export class AuthService {
   }
 
   // ---------------------------------------------------------------------
-  // Déconnexion — invalide le refresh token stocké
+  // Déconnexion - invalide le refresh token stocké
   // ---------------------------------------------------------------------
   async logout(userId: string) {
     await this.prisma.user.update({

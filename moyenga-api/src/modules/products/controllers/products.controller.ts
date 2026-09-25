@@ -22,7 +22,7 @@ import { Roles } from '../../auth/decorators/roles.decorator.js';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  // -------- Public — catalogue boutique (produits actifs uniquement) --------
+  // -------- Public - catalogue boutique (produits actifs uniquement) --------
 
   @Public()
   @Get()
@@ -36,7 +36,7 @@ export class ProductsController {
     return this.productsService.findOnePublic(idOrSlug);
   }
 
-  // -------- Backoffice — tous les produits, y compris inactifs --------
+  // -------- Backoffice - tous les produits, y compris inactifs --------
 
   @Roles(Role.SUPERADMIN, Role.ADMIN, Role.GESTIONNAIRE)
   @Get('admin/all')
@@ -62,7 +62,7 @@ export class ProductsController {
     return this.productsService.update(id, dto);
   }
 
-  // Suppression réservée ADMIN/SUPERADMIN — un GESTIONNAIRE désactive plutôt
+  // Suppression réservée ADMIN/SUPERADMIN - un GESTIONNAIRE désactive plutôt
   @Roles(Role.SUPERADMIN, Role.ADMIN)
   @Delete(':id')
   remove(@Param('id') id: string) {

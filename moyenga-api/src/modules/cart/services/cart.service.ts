@@ -127,7 +127,7 @@ export class CartService {
   private assertStockSufficient(product: { stock: number; name: string }, quantity: number) {
     if (quantity > product.stock) {
       throw new BadRequestException(
-        `Stock insuffisant pour "${product.name}" — ${product.stock} unité(s) disponible(s)`,
+        `Stock insuffisant pour "${product.name}" - ${product.stock} unité(s) disponible(s)`,
       );
     }
   }

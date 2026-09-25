@@ -1,6 +1,6 @@
 @use 'tokens' as *;
 // ============================================================
-// STYLE GLOBAL — Moyenga
+// STYLE GLOBAL - Moyenga
 // ============================================================
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
@@ -57,7 +57,7 @@ button {
   font-family: inherit;
 }
 
-// Focus clavier visible partout — accessibilité
+// Focus clavier visible partout - accessibilité
 :focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--orange-focus);

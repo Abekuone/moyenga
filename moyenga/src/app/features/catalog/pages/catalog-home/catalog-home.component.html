@@ -1,7 +1,7 @@
 <section class="hero">
   <div class="hero__text">
-    <h1>Le marché de votre quartier, à portée de clic.</h1>
-    <p>Alimentation, mode, électronique et bien plus — commandez chez des vendeurs de confiance et faites-vous livrer.</p>
+    <h1>Ma boutique, à portée de clic.</h1>
+    <p>Parcourez mes produits, ajoutez-les au panier et passez commande directement - je confirme tout avec vous sur WhatsApp.</p>
     <a href="#catalogue" class="btn btn-primary hero__cta">Découvrir le catalogue</a>
   </div>
 
@@ -30,7 +30,13 @@
     <p>{{ products().length }} article{{ products().length > 1 ? 's' : '' }} disponible{{ products().length > 1 ? 's' : '' }}</p>
   </div>
 
-  @if (products().length) {
+  @if (loading()) {
+    <div class="catalog__grid">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <div class="product-skeleton"></div>
+      }
+    </div>
+  } @else if (products().length) {
     <div class="catalog__grid">
       @for (product of products(); track product.id) {
         <app-product-card [product]="product" (addToCart)="onAddToCart($event)" />

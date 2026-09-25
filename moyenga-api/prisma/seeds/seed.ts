@@ -34,7 +34,7 @@ async function main() {
   });
 
   if (existingSuperadmin) {
-    console.log(`Le superadmin ${superadminEmail} existe déjà — étape ignorée.`);
+    console.log(`Le superadmin ${superadminEmail} existe déjà - étape ignorée.`);
   } else {
     const hashedPassword = await bcrypt.hash(superadminPassword, 10);
     await prisma.user.create({

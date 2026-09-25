@@ -12,7 +12,7 @@ export class CreateCategoryDto {
   @MaxLength(100)
   name: string;
 
-  // Optionnel — généré automatiquement à partir du nom si absent
+  // Optionnel - généré automatiquement à partir du nom si absent
   @IsOptional()
   @IsString()
   @MaxLength(120)

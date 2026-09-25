@@ -20,7 +20,7 @@ import { Roles } from '../../auth/decorators/roles.decorator.js';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  // -------- Public — consultation depuis la boutique --------
+  // -------- Public - consultation depuis la boutique --------
 
   @Public()
   @Get()
@@ -34,7 +34,7 @@ export class CategoriesController {
     return this.categoriesService.findOne(idOrSlug);
   }
 
-  // -------- Backoffice — ADMIN / SUPERADMIN / GESTIONNAIRE --------
+  // -------- Backoffice - ADMIN / SUPERADMIN / GESTIONNAIRE --------
 
   @Roles(Role.SUPERADMIN, Role.ADMIN, Role.GESTIONNAIRE)
   @Post()
@@ -48,7 +48,7 @@ export class CategoriesController {
     return this.categoriesService.update(id, dto);
   }
 
-  // -------- Suppression — ADMIN / SUPERADMIN uniquement --------
+  // -------- Suppression - ADMIN / SUPERADMIN uniquement --------
 
   @Roles(Role.SUPERADMIN, Role.ADMIN)
   @Delete(':id')

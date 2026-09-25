@@ -20,7 +20,7 @@ export class PaymentsController {
   }
 
   // Le détail du paiement est déjà exposé via GET /orders/:id (payment inclus)
-  // — pas besoin d'un endpoint GET séparé ici.
+  // - pas besoin d'un endpoint GET séparé ici.
 
   @Roles(Role.SUPERADMIN, Role.ADMIN, Role.GESTIONNAIRE)
   @Patch('confirm')

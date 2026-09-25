@@ -129,6 +129,28 @@
   }
 }
 
+.product-skeleton {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    100deg,
+    var(--gray-100) 30%,
+    var(--gray-50) 50%,
+    var(--gray-100) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 .catalog__empty {
   display: flex;
   flex-direction: column;

@@ -19,7 +19,7 @@ export class CreateProductDto {
   @MaxLength(150)
   name: string;
 
-  // Optionnel — généré automatiquement à partir du nom si absent
+  // Optionnel - généré automatiquement à partir du nom si absent
   @IsOptional()
   @IsString()
   @MaxLength(180)

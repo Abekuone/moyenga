@@ -27,7 +27,7 @@ export class OrdersService {
   ) {}
 
   // ---------------------------------------------------------------------
-  // Création — transforme le panier courant en commande (transaction)
+  // Création - transforme le panier courant en commande (transaction)
   // ---------------------------------------------------------------------
   async createFromCart(userId: string, dto: CreateOrderDto) {
     const cart = await this.cartService.getOrCreateCart(userId);
@@ -51,7 +51,7 @@ export class OrdersService {
         }
         if (product.stock < item.quantity) {
           throw new BadRequestException(
-            `Stock insuffisant pour "${product.name}" — ${product.stock} unité(s) disponible(s)`,
+            `Stock insuffisant pour "${product.name}" - ${product.stock} unité(s) disponible(s)`,
           );
         }
 
@@ -87,7 +87,7 @@ export class OrdersService {
   }
 
   // ---------------------------------------------------------------------
-  // Lecture / actions — CLIENT (ses propres commandes uniquement)
+  // Lecture / actions - CLIENT (ses propres commandes uniquement)
   // ---------------------------------------------------------------------
   async findAllForUser(userId: string, filter: OrderFilterDto) {
     return this.findAll({ ...filter, userId });
@@ -115,7 +115,7 @@ export class OrdersService {
   }
 
   // ---------------------------------------------------------------------
-  // Lecture / gestion — backoffice
+  // Lecture / gestion - backoffice
   // ---------------------------------------------------------------------
   async findAllAdmin(filter: OrderFilterDto) {
     return this.findAll(filter);

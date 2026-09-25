@@ -804,4 +804,20 @@ $bp-mobile-nav: 860px;
   padding: $spacing-4 $spacing-6;
   text-align: center;
   font-size: $font-size-xs;
+  background-color: var(--blue-dark);
+}
+
+.cesmonjour {
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover,
+  &.is-active {
+    color: var(--orange);
+  }
+}
+
+.logo-moyenga {
+  width: 80px;
+  height: 80px;
 }

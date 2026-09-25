@@ -1,0 +1,44 @@
+@use '../../../../../tokens' as *;
+
+.product-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-8 $spacing-6 $spacing-12;
+}
+
+.product-page__not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-12 $spacing-6;
+  text-align: center;
+
+  h2 {
+    font-size: $font-size-xl;
+  }
+
+  p {
+    color: var(--color-text-muted);
+  }
+}
+
+.product-page__similar {
+  margin-top: $spacing-12;
+
+  h2 {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-6;
+  }
+}
+
+.product-page__similar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: $spacing-6;
+
+  @media (max-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-4;
+  }
+}

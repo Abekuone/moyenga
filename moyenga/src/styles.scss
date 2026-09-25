@@ -1,7 +1,4 @@
 @use 'tokens' as *;
-// ============================================================
-// STYLE GLOBAL - Moyenga
-// ============================================================
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
@@ -57,16 +54,12 @@ button {
   font-family: inherit;
 }
 
-// Focus clavier visible partout - accessibilité
 :focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--orange-focus);
   border-radius: 4px;
 }
 
-// --------------------------------------------------------------
-// Boutons
-// --------------------------------------------------------------
 .btn {
   display: inline-flex;
   align-items: center;
@@ -131,9 +124,6 @@ button {
   }
 }
 
-// --------------------------------------------------------------
-// Champs de formulaire
-// --------------------------------------------------------------
 .field {
   display: flex;
   flex-direction: column;
@@ -177,9 +167,6 @@ button {
   font-weight: 500;
 }
 
-// --------------------------------------------------------------
-// Cartes
-// --------------------------------------------------------------
 .card {
   background-color: var(--white);
   border: 1px solid var(--color-border);
@@ -187,9 +174,6 @@ button {
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
-// --------------------------------------------------------------
-// Badges
-// --------------------------------------------------------------
 .badge {
   display: inline-flex;
   align-items: center;

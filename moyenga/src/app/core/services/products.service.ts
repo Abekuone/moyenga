@@ -19,9 +19,6 @@ export class ProductsService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/products`;
 
-  // ---------------------------------------------------------------
-  // Public - catalogue boutique
-  // ---------------------------------------------------------------
   findAllPublic(filter: ProductFilter = {}): Observable<PaginatedResponse<Product>> {
     return this.http
       .get<PaginatedResponse<ApiProduct>>(this.apiUrl, { params: this.buildParams(filter) })
@@ -34,9 +31,6 @@ export class ProductsService {
       .pipe(map((product) => this.mapProduct(product)));
   }
 
-  // ---------------------------------------------------------------
-  // Backoffice - tous les produits (actifs ou non)
-  // ---------------------------------------------------------------
   findAllAdmin(filter: ProductFilter = {}): Observable<PaginatedResponse<Product>> {
     return this.http
       .get<PaginatedResponse<ApiProduct>>(`${this.apiUrl}/admin/all`, {
@@ -79,9 +73,6 @@ export class ProductsService {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${productId}/images/${imageId}`);
   }
 
-  // ---------------------------------------------------------------
-  // Helpers privés
-  // ---------------------------------------------------------------
   private buildParams(filter: ProductFilter): HttpParams {
     let params = new HttpParams();
     for (const [key, value] of Object.entries(filter)) {
@@ -99,7 +90,6 @@ export class ProductsService {
     };
   }
 
-  // L'API renvoie les Decimal Prisma sous forme de string ("22500.00")
   private mapProduct(product: ApiProduct): Product {
     return { ...product, price: Number(product.price) };
   }

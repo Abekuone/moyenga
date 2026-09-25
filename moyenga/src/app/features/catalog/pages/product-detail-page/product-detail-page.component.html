@@ -1,0 +1,30 @@
+<section class="product-page">
+    @if (product(); as p) {
+      <app-product-detail
+        [product]="p"
+        [isFavorite]="isFavorite()"
+        (addToCart)="onAddToCart($event)"
+        (toggleFavorite)="onToggleFavorite($event)"
+        (share)="onShare($event)"
+      />
+    } @else if (loading()) {
+      <app-product-detail [product]="null" />
+    } @else if (notFound()) {
+      <div class="product-page__not-found">
+        <h2>Produit introuvable</h2>
+        <p>Ce produit n'existe plus ou a été retiré.</p>
+        <a routerLink="/" class="btn btn-primary">Retour au catalogue</a>
+      </div>
+    }
+  
+    @if (similarProducts().length) {
+      <section class="product-page__similar">
+        <h2>Produits similaires</h2>
+        <div class="product-page__similar-grid">
+          @for (product of similarProducts(); track product.id) {
+            <app-product-card [product]="product" (addToCart)="onAddSimilarToCart($event)" />
+          }
+        </div>
+      </section>
+    }
+  </section>

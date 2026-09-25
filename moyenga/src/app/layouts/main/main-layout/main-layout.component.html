@@ -12,7 +12,9 @@
       </span>
     </label>
   
-    <a routerLink="/" class="main-header__logo">Moyenga</a>
+    <a routerLink="/" class="main-header__logo">
+      <img src="/images/Moyenga-1.png" alt="Moyenga" class="logo-moyenga">
+    </a>
   
     <div class="main-header__search-wrap">
       <form class="main-header__search" (ngSubmit)="onSearchSubmit()" autocomplete="off">
@@ -47,8 +49,7 @@
         </div>
       }
     </div>
-  
-    <!-- Icônes façon Leboncoin : Mes recherches / Favoris / Messages / Compte -->
+
     <nav class="main-header__icons">
       <a routerLink="/searches" routerLinkActive="is-active" class="main-header__icon-link">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -63,14 +64,6 @@
         </svg>
         <span class="main-header__icon-label">Favoris</span>
       </a>
-  
-      <a routerLink="/messages" routerLinkActive="is-active" class="main-header__icon-link">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2Z" />
-        </svg>
-        <span class="main-header__icon-label">Messages</span>
-      </a>
-  
       <a routerLink="/cart" routerLinkActive="is-active" class="main-header__icon-link">
         <span class="main-header__icon-badge-wrap">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -175,7 +168,9 @@
 
   <nav id="mobile-nav" class="main-header__mobile-panel" aria-label="Menu mobile">
     <div class="main-header__mobile-panel-header">
-      <span class="main-header__mobile-panel-logo">Moyenga</span>
+      <span class="main-header__mobile-panel-logo">
+      <img src="/images/Moyenga-1.png" alt="Moyenga" class="logo-moyenga">
+      </span>
       <label for="mobile-menu-toggle" class="main-header__mobile-close" aria-label="Fermer le menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 6l12 12M18 6L6 18" />
@@ -238,7 +233,9 @@
 <footer class="main-footer">
   <div class="main-footer__grid">
     <div class="main-footer__brand">
-      <p class="main-footer__logo">Moyenga</p>
+      <p class="main-footer__logo">
+      <img src="/images/Moyenga-1.png" alt="Moyenga" class="logo-moyenga">
+      </p>
       <p class="main-footer__tagline">
         Commandez vos produits préférés et faites-vous livrés
       </p>
@@ -260,6 +257,6 @@
   </div>
 
   <div class="main-footer__bottom">
-    <p>&copy; {{ currentYear }} Moyenga. Tous droits réservés.</p>
+    <p>&copy; {{ currentYear }} <a class="cesmonjour" href="https://cesmonjour.com" target="_blank">Cesmonjour</a>. Tous droits réservés.</p>
   </div>
 </footer>

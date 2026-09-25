@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 const requireEmailOrPhone: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
   const email = group.get('email')?.value;
@@ -9,7 +10,7 @@ const requireEmailOrPhone: ValidatorFn = (group: AbstractControl): ValidationErr
   return email || phone ? null : { identifierRequired: true };
 };
 @Component({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   selector: 'app-register',
   styleUrl: './register.component.scss',
   templateUrl: './register.component.html',

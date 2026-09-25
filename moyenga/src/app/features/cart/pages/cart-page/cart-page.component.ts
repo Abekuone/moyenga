@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../../core/services/cart.service';
 
-const WHATSAPP_NUMBER = '22670000000';
+const WHATSAPP_NUMBER = '22677366317';
 
 @Component({
   standalone: true,

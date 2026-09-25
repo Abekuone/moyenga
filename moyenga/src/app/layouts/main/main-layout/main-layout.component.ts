@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -26,6 +26,11 @@ export class MainLayoutComponent {
 
   searchTerm = '';
 
+  private lastScrollY = 0;
+  readonly isHeaderHidden = signal(false);
+  private readonly mobileBreakpoint = 860;
+  private readonly scrollThreshold = 80;
+
   private readonly categoriesResponse = toSignal(
     this.categoriesService.findAll().pipe(
       catchError((error) => {
@@ -37,8 +42,6 @@ export class MainLayoutComponent {
   );
 
   readonly categories = computed<Category[]>(() => this.categoriesResponse()?.data ?? []);
-
-  // Reflète le filtre catégorie actif dans l'URL, pour surligner l'onglet courant
   private readonly queryParams = toSignal(
     this.route.queryParamMap.pipe(map((params) => params.get('categoryId'))),
     { initialValue: null },
@@ -50,7 +53,7 @@ export class MainLayoutComponent {
     this.router.navigate(['/'], { queryParams: { search: search || null } });
   }
 
-  recentSearches = signal<string[]>(['Chaussures homme', 'Téléphone Samsung']); // à alimenter depuis un localStorage/service
+  recentSearches = signal<string[]>(['Chaussures homme', 'Téléphone Samsung']);
 
   selectRecentSearch(term: string) {
     this.searchTerm = term;
@@ -59,5 +62,20 @@ export class MainLayoutComponent {
 
   removeRecentSearch(term: string) {
     this.recentSearches.update(list => list.filter(t => t !== term));
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    if (window.innerWidth > this.mobileBreakpoint) {
+      this.isHeaderHidden.set(false);
+      return;
+    }
+
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > this.lastScrollY;
+    const pastThreshold = currentScrollY > this.scrollThreshold;
+
+    this.isHeaderHidden.set(scrollingDown && pastThreshold);
+    this.lastScrollY = currentScrollY;
   }
 }

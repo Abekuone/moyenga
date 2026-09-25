@@ -14,6 +14,13 @@ $bp-mobile-nav: 860px;
   z-index: 30;
   background-color: var(--white);
   border-bottom: 1px solid var(--color-border);
+  transition: transform 0.25s ease;
+
+  &--hidden {
+    @media (max-width: $bp-mobile-nav) {
+      transform: translateY(-100%);
+    }
+  }
 }
 
 .main-header__top {
@@ -81,15 +88,10 @@ $bp-mobile-nav: 860px;
   transform: rotate(-45deg);
 }
 
-.main-header__mobile-toggle-input:checked ~ .main-header__top .main-header__burger-open {
-  opacity: 0;
-  transform: rotate(45deg);
-}
-
-.main-header__mobile-toggle-input:checked ~ .main-header__top .main-header__burger-close {
-  opacity: 1;
-  transform: rotate(0);
-}
+.main-header__mobile-toggle-input:checked ~ .main-header__top .main-header__burger-open { opacity: 0; transform: rotate(45deg); }
+.main-header__mobile-toggle-input:checked ~ .main-header__top .main-header__burger-close { opacity: 1; transform: rotate(0); }
+.main-header__mobile-toggle-input:checked ~ .main-header__mobile-backdrop { display: block; opacity: 1; }
+.main-header__mobile-toggle-input:checked ~ .main-header__mobile-panel { display: flex; transform: translateX(0); }
 
 .main-header__logo {
   flex-shrink: 0;
@@ -338,6 +340,7 @@ $bp-mobile-nav: 860px;
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 $spacing-8;
@@ -413,16 +416,31 @@ $bp-mobile-nav: 860px;
 }
 
 .main-header__megamenu {
-  display: none;
   position: absolute;
   top: 100%;
   left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-6px);
   background: var(--white);
-  border-top: 1px solid var(--color-border);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  border-top: 3px solid var(--orange);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
   z-index: 25;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.main-header__category-item {
+  position: static;
+  display: inline-block;
+
+  &:hover .main-header__megamenu,
+  &:focus-within .main-header__megamenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .main-header__megamenu-inner {
@@ -454,12 +472,12 @@ $bp-mobile-nav: 860px;
   color: var(--gray-900);
 
   &:hover {
-    background-color: var(--white);
+    background-color: var(--gray-100);
     color: var(--orange);
   }
 
   &.is-current {
-    background-color: var(--white);
+    background-color: rgba($orange, 0.08);
     color: var(--orange);
     font-weight: 700;
   }
@@ -581,36 +599,6 @@ $bp-mobile-nav: 860px;
   color: var(--gray-500);
 }
 
-.main-header__mobile-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: $spacing-2;
-  padding: $spacing-4 $spacing-2;
-  border-bottom: 1px solid var(--color-border);
-  background: transparent;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  text-align: left;
-  font-family: var(--font-body);
-  font-size: $font-size-base;
-  font-weight: 500;
-  color: var(--gray-900);
-  cursor: pointer;
-  list-style: none;
-
-  &::-webkit-details-marker {
-    display: none;
-  }
-
-  &:hover,
-  &.is-active {
-    color: var(--orange);
-  }
-}
-
 .main-header__mobile-link--strong {
   font-weight: 700;
 }
@@ -667,15 +655,6 @@ $bp-mobile-nav: 860px;
   opacity: 1;
 }
 
-.main-header__mobile-account {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-2;
-  padding-bottom: $spacing-4;
-  margin-bottom: $spacing-4;
-  border-bottom: 1px solid var(--color-border);
-}
-
 .main-header__mobile-login,
 .main-header__mobile-logout {
   border-radius: var(--radius-md);
@@ -709,19 +688,6 @@ $bp-mobile-nav: 860px;
   &.is-active {
     color: var(--orange);
   }
-}
-
-.main-header__mobile-accordion {
-  border-bottom: 1px solid var(--color-border);
-
-  &[open] .main-header__mobile-accordion-icon {
-    transform: rotate(180deg);
-  }
-}
-
-.main-header__mobile-accordion-icon {
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
 }
 
 .main-header__mobile-submenu {

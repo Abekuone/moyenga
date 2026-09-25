@@ -3,7 +3,7 @@
 .auth-layout {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(360px, 42%) 1fr;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -12,23 +12,44 @@
 
 .auth-layout__brand {
   position: relative;
-  background-color: var(--blue-darker);
-  color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: $spacing-8;
   overflow: hidden;
+  background: linear-gradient(155deg, var(--blue-dark) 0%, var(--blue-darker) 55%, #072b45 100%);
+  color: var(--white);
 
   @media (max-width: 900px) {
     padding: $spacing-6;
-    min-height: 240px;
+    min-height: 260px;
+  }
+}
+
+.auth-layout__pattern-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.auth-layout__pattern {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+
+  @media (max-width: 900px) {
+    right: -80px;
+    bottom: -100px;
+    opacity: 0.85;
   }
 }
 
 .auth-layout__logo {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
   font-family: var(--font-display);
   font-size: $font-size-xl;
   font-weight: 800;
@@ -36,14 +57,28 @@
   width: fit-content;
 }
 
+.auth-layout__logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background-color: var(--orange);
+  color: var(--white);
+  font-size: $font-size-base;
+  font-weight: 800;
+}
+
 .auth-layout__quote {
   position: relative;
   z-index: 1;
-  max-width: 26ch;
+  max-width: 30ch;
 
   h1 {
     color: var(--white);
     font-size: $font-size-2xl;
+    line-height: 1.25;
     margin-bottom: $spacing-3;
 
     @media (max-width: 900px) {
@@ -55,19 +90,102 @@
     color: rgba($white, 0.75);
     font-size: $font-size-sm;
     line-height: 1.6;
+    margin-bottom: $spacing-6;
   }
 }
 
-.auth-layout__pattern {
-  position: absolute;
-  right: -40px;
-  bottom: -40px;
+.auth-layout__features {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    font-size: $font-size-sm;
+    color: rgba($white, 0.9);
+
+    svg {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      padding: 4px;
+      box-sizing: border-box;
+      border-radius: var(--radius-full);
+      background-color: rgba($orange, 0.25);
+      color: var(--orange);
+    }
+  }
+
+  // Sur mobile, le panneau de marque est compact : on retire la liste,
+  // le titre + les icônes suffisent comme accroche
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
+.auth-layout__footer-note {
+  position: relative;
+  z-index: 1;
+  font-size: $font-size-xs;
+  color: rgba($white, 0.5);
+
+  @media (max-width: 900px) {
+    display: none;
+  }
 }
 
 .auth-layout__panel {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: $spacing-8 $spacing-6;
+  background-color: var(--gray-50);
+
+  @media (max-width: 900px) {
+    padding: $spacing-6 $spacing-4 $spacing-8;
+    background-color: var(--white);
+  }
+}
+
+.auth-layout__mobile-logo {
+  display: none;
+  margin-bottom: $spacing-6;
+
+  @media (max-width: 900px) {
+    display: block;
+  }
+}
+
+.auth-layout__logo--dark {
+  color: var(--gray-900);
+}
+
+.auth-layout__card {
+  width: 100%;
+  max-width: 420px;
   background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: $spacing-8;
+
+  @media (max-width: 900px) {
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+  }
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 9999px;
 }

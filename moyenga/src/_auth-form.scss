@@ -1,5 +1,3 @@
-// Partiel partagé - importé par login et register
-// @use 'src/styles/auth-form' as *;
 @use './tokens' as *;
 
 .auth-form {
@@ -9,6 +7,23 @@
   h2 {
     font-size: $font-size-2xl;
     margin-bottom: $spacing-2;
+  }
+}
+
+.auth-form__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: $spacing-4;
+  border-radius: var(--radius-md);
+  background-color: rgba($blue-primary, 0.12);
+  color: var(--blue-darker);
+
+  &--success {
+    background-color: rgba($success, 0.12);
+    color: $success;
   }
 }
 
@@ -34,16 +49,69 @@
   }
 }
 
-.auth-form__submit {
-  width: 100%;
-  padding: 0.8rem;
-  margin-top: $spacing-2;
+// --- Champs ---
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
 }
 
-.auth-form__switch {
-  margin-top: $spacing-6;
+.field__label {
   font-size: $font-size-sm;
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.field__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .form-control {
+    padding-left: 2.6rem;
+  }
+}
+
+.field__icon {
+  position: absolute;
+  left: $spacing-3;
+  color: var(--gray-500);
+  pointer-events: none;
+}
+
+.form-control {
+  width: 100%;
+  height: 46px;
+  padding: 0 $spacing-4;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--gray-50);
+  font-family: var(--font-body);
+  font-size: $font-size-base;
+  color: var(--gray-900);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  &::placeholder {
+    color: var(--gray-300);
+    font-weight: 400;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--blue-primary);
+    background-color: var(--white);
+  }
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  color: $danger;
+  font-size: $font-size-sm;
+  font-weight: 500;
 }
 
 .auth-form__success {
@@ -53,4 +121,62 @@
   padding: $spacing-4;
   color: $success;
   font-size: $font-size-sm;
+}
+
+// --- Bouton ---
+
+.auth-form__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem;
+  margin-top: $spacing-2;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 20px rgba($orange, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba($orange, 0.32);
+  }
+
+  &:disabled {
+    box-shadow: none;
+    opacity: 0.7;
+  }
+}
+
+.auth-form__spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: $spacing-2;
+  border: 2px solid rgba($white, 0.4);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: auth-spin 0.6s linear infinite;
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}
+
+.auth-form__switch {
+  margin-top: $spacing-6;
+  padding-top: $spacing-4;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
+
+  a {
+    color: var(--orange);
+    font-weight: 700;
+
+    &:hover {
+      color: var(--orange-hover);
+    }
+  }
 }

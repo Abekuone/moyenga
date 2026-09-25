@@ -29,16 +29,16 @@ $bp-mobile-nav: 860px;
   display: flex;
   align-items: center;
   gap: $spacing-8;
-  padding: $spacing-4 $spacing-8;
+  padding: $spacing-1 $spacing-8;
 
   @media (max-width: $bp-mobile-nav) {
     gap: $spacing-3;
-    padding: $spacing-3 $spacing-4;
+    padding: $spacing-2 $spacing-4;
   }
 
   @media (max-width: 720px) {
     flex-wrap: wrap;
-    padding: $spacing-3 $spacing-4;
+    padding: $spacing-2 $spacing-4;
   }
 }
 
@@ -784,6 +784,6 @@ $bp-mobile-nav: 860px;
 }
 
 .logo-moyenga {
-  width: 80px;
-  height: 80px;
+  width: auto;
+  height: 60px;
 }

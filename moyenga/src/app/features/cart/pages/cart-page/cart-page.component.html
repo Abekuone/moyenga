@@ -4,7 +4,7 @@
   @if (items().length) {
     <div class="cart-page__layout">
       <ul class="cart-list">
-        @for (item of items(); track item.id) {
+        @for (item of items(); track item.productId) {
           <li class="cart-item">
             <div class="cart-item__media">
               @if (item.imageUrl) {
@@ -18,14 +18,14 @@
             </div>
 
             <div class="cart-item__qty">
-              <button type="button" (click)="onDecrease(item.id)" aria-label="Diminuer la quantité">−</button>
+              <button type="button" (click)="onDecrease(item.productId)" aria-label="Diminuer la quantité">−</button>
               <span>{{ item.quantity }}</span>
-              <button type="button" (click)="onIncrease(item.id)" aria-label="Augmenter la quantité">+</button>
+              <button type="button" (click)="onIncrease(item.productId)" aria-label="Augmenter la quantité">+</button>
             </div>
 
             <p class="cart-item__subtotal">{{ formatPrice(item.price * item.quantity) }}</p>
 
-            <button type="button" class="cart-item__remove" (click)="onRemove(item.id)" aria-label="Retirer l'article">
+            <button type="button" class="cart-item__remove" (click)="onRemove(item.productId)" aria-label="Retirer l'article">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 6h18" />
                 <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -64,7 +64,7 @@
           Commander via WhatsApp
         </a>
         <p class="cart-summary__note">
-          Paiement à la livraison pour le moment - le paiement en ligne arrive bientôt.
+          Paiement à la livraison pour le moment — le paiement en ligne arrive bientôt.
         </p>
         <a routerLink="/" class="cart-summary__continue">Continuer mes achats</a>
       </aside>

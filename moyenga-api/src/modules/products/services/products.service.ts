@@ -15,7 +15,7 @@ import { ProductFilterDto } from '../dtos/product-filter.dto.js';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   // ---------------------------------------------------------------------
   // Création
@@ -182,24 +182,30 @@ export class ProductsService {
   // ---------------------------------------------------------------------
   // Helpers privés
   // ---------------------------------------------------------------------
+  // --- Dans findAll(), remplace la construction du "where" par ceci : ---
+
   private async findAll(filter: ProductFilterDto) {
     const page = filter.page ?? 1;
     const limit = filter.limit ?? 20;
     const skip = (page - 1) * limit;
 
+    const categoryIds = filter.categoryId
+      ? await this.resolveCategoryIds(filter.categoryId)
+      : undefined;
+
     const where: Prisma.ProductWhereInput = {
       ...(filter.search
         ? { name: { contains: filter.search, mode: 'insensitive' } }
         : {}),
-      ...(filter.categoryId ? { categoryId: filter.categoryId } : {}),
+      ...(categoryIds ? { categoryId: { in: categoryIds } } : {}),
       ...(filter.isActive !== undefined ? { isActive: filter.isActive } : {}),
       ...(filter.minPrice !== undefined || filter.maxPrice !== undefined
         ? {
-            price: {
-              ...(filter.minPrice !== undefined ? { gte: filter.minPrice } : {}),
-              ...(filter.maxPrice !== undefined ? { lte: filter.maxPrice } : {}),
-            },
-          }
+          price: {
+            ...(filter.minPrice !== undefined ? { gte: filter.minPrice } : {}),
+            ...(filter.maxPrice !== undefined ? { lte: filter.maxPrice } : {}),
+          },
+        }
         : {}),
     };
 
@@ -218,6 +224,25 @@ export class ProductsService {
       data: data.map((p) => this.withRating(p)),
       meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
     };
+  }
+
+  // --- Nouveau helper à ajouter parmi les méthodes privées : ---
+
+  // Si categoryId est une catégorie principale, on inclut aussi ses
+  // sous-catégories pour que le filtre remonte bien tous les produits.
+  // Si c'est déjà une sous-catégorie (ou une catégorie sans enfants), on
+  // filtre juste dessus.
+  private async resolveCategoryIds(categoryId: string): Promise<string[]> {
+    const category = await this.prisma.category.findUnique({
+      where: { id: categoryId },
+      include: { children: { select: { id: true } } },
+    });
+
+    if (!category) return [categoryId];
+
+    return category.children.length
+      ? [category.id, ...category.children.map((c) => c.id)]
+      : [category.id];
   }
 
   private async getByIdOrSlug(idOrSlug: string) {
@@ -245,10 +270,10 @@ export class ProductsService {
     const averageRating =
       reviewsCount > 0
         ? Math.round(
-            (reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) /
-              reviewsCount) *
-              10,
-          ) / 10
+          (reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) /
+            reviewsCount) *
+          10,
+        ) / 10
         : null;
 
     return { ...rest, reviewsCount, averageRating };

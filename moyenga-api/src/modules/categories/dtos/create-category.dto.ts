@@ -1,7 +1,9 @@
+import { PartialType } from '@nestjs/mapped-types';
 import {
   IsBoolean,
   IsOptional,
   IsString,
+  IsUUID,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -30,4 +32,10 @@ export class CreateCategoryDto {
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
+
+  // Si fourni, cette catégorie devient une sous-catégorie de parentId
+  @IsOptional()
+  @IsUUID('4', { message: 'parentId doit être un UUID valide' })
+  parentId?: string;
 }
+

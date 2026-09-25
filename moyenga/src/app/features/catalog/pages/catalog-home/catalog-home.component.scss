@@ -54,40 +54,6 @@
 }
 
 // --------------------------------------------------------------
-// Catégories
-// --------------------------------------------------------------
-.categories {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: $spacing-8 $spacing-6 0;
-}
-
-.categories__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-3;
-}
-
-.category-chip {
-  padding: 0.5rem 1.1rem;
-  border-radius: var(--radius-full);
-  border: 1.5px solid var(--color-border);
-  color: var(--color-text);
-  font-size: $font-size-sm;
-  font-weight: 500;
-
-  &:hover {
-    border-color: var(--orange);
-    color: var(--orange-active);
-  }
-}
-
-.categories__empty {
-  color: var(--color-text-muted);
-  font-size: $font-size-sm;
-}
-
-// --------------------------------------------------------------
 // Grille catalogue
 // --------------------------------------------------------------
 .catalog {
@@ -98,8 +64,9 @@
 
 .catalog__header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
+  gap: $spacing-4;
   margin-bottom: $spacing-6;
 
   h2 {

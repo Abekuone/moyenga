@@ -21,11 +21,16 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   // -------- Public - consultation depuis la boutique --------
+  // Par défaut ne renvoie que les catégories principales (chacune avec ses
+  // sous-catégories incluses). Passe ?onlyRoot=false pour tout à plat.
 
   @Public()
   @Get()
-  findAll(@Query() pagination: PaginationDto) {
-    return this.categoriesService.findAll(pagination);
+  findAll(
+    @Query() pagination: PaginationDto,
+    @Query('onlyRoot') onlyRoot?: string,
+  ) {
+    return this.categoriesService.findAll(pagination, onlyRoot !== 'false');
   }
 
   @Public()

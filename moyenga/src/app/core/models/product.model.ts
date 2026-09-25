@@ -5,6 +5,10 @@ export interface Category {
   description?: string | null;
   image?: string | null;
   isActive: boolean;
+  parentId?: string | null;
+  // Présent uniquement sur les catégories racines (retour de GET /categories)
+  children?: Category[];
+  _count?: { products: number };
 }
 
 export interface ProductImage {

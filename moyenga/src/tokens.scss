@@ -5,10 +5,10 @@
 // --------------------------------------------------------------
 // Couleurs de marque
 // --------------------------------------------------------------
-$orange: #ec6d0f;
-$orange-hover: #e16505;
-$orange-active: #e16505;
-$orange-focus: #e88827;
+$orange: #EC5A13;
+$orange-hover: #EC5A13;
+$orange-active: #EC5A13;
+$orange-focus: #e77400;
 
 $blue-primary: #145a92;
 $blue-dark: #0d3a5c;
@@ -29,23 +29,18 @@ $success: #1e8e3e;
 $warning: #b7791f;
 $danger: #d92d20;
 
-// --------------------------------------------------------------
-// Typographie - Sora (titres) / Inter (texte courant)
-// --------------------------------------------------------------
 $font-display: 'Sora', 'Segoe UI', sans-serif;
 $font-body: 'Inter', 'Segoe UI', sans-serif;
 
 $font-size-xs: 0.75rem;
 $font-size-sm: 0.875rem;
 $font-size-base: 1rem;
+$font-size-md : 1.125px;
 $font-size-lg: 1.125rem;
 $font-size-xl: 1.5rem;
 $font-size-2xl: 2rem;
 $font-size-3xl: 2.75rem;
 
-// --------------------------------------------------------------
-// Espacements / rayons / ombres
-// --------------------------------------------------------------
 $spacing-1: 0.25rem;
 $spacing-2: 0.5rem;
 $spacing-3: 0.75rem;
@@ -63,9 +58,6 @@ $shadow-sm: 0 1px 2px rgba($black, 0.05);
 $shadow-md: 0 8px 24px rgba($blue-darker, 0.08);
 $shadow-lg: 0 16px 40px rgba($blue-darker, 0.14);
 
-// --------------------------------------------------------------
-// Exposition en CSS custom properties
-// --------------------------------------------------------------
 :root {
   --orange: #{$orange};
   --orange-hover: #{$orange-hover};

@@ -21,7 +21,7 @@ export interface ProductCardData {
 })
 export class ProductCardComponent {
   readonly product = input.required<ProductCardData>();
-  readonly addToCart = output<string>();
+  readonly addToCart = output<ProductCardData>();
 
   formatPrice(value: number): string {
     return new Intl.NumberFormat('fr-FR').format(value) + ' FCFA';

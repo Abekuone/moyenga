@@ -1,13 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-interface CartItemView {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  imageUrl?: string;
-}
+import { CartService } from '../../../../core/services/cart.service';
 
 // TODO: déplacer dans environment.ts (numéro WhatsApp de la boutique, au format international sans "+")
 const WHATSAPP_NUMBER = '22670000000';
@@ -20,12 +13,10 @@ const WHATSAPP_NUMBER = '22670000000';
   styleUrl: './cart-page.component.scss',
 })
 export class CartPageComponent {
-  // TODO: remplacer par CartService (état réel du panier)
-  readonly items = signal<CartItemView[]>([]);
+  private readonly cartService = inject(CartService);
 
-  readonly total = computed(() =>
-    this.items().reduce((sum, item) => sum + item.price * item.quantity, 0),
-  );
+  readonly items = this.cartService.items;
+  readonly total = this.cartService.total;
 
   // Construit un message pré-rempli listant le panier, pour que le client
   // n'ait qu'à appuyer sur "Envoyer" dans WhatsApp.
@@ -34,7 +25,7 @@ export class CartPageComponent {
       'Bonjour, je souhaite commander :',
       '',
       ...this.items().map(
-        (item) => `• ${item.name} - x${item.quantity} (${this.formatPrice(item.price * item.quantity)})`,
+        (item) => `• ${item.name} — x${item.quantity} (${this.formatPrice(item.price * item.quantity)})`,
       ),
       '',
       `Total : ${this.formatPrice(this.total())}`,
@@ -48,19 +39,15 @@ export class CartPageComponent {
     return new Intl.NumberFormat('fr-FR').format(value) + ' FCFA';
   }
 
-  onIncrease(id: string): void {
-    this.items.update((items) =>
-      items.map((i) => (i.id === id ? { ...i, quantity: i.quantity + 1 } : i)),
-    );
+  onIncrease(productId: string): void {
+    this.cartService.increase(productId);
   }
 
-  onDecrease(id: string): void {
-    this.items.update((items) =>
-      items.map((i) => (i.id === id && i.quantity > 1 ? { ...i, quantity: i.quantity - 1 } : i)),
-    );
+  onDecrease(productId: string): void {
+    this.cartService.decrease(productId);
   }
 
-  onRemove(id: string): void {
-    this.items.update((items) => items.filter((i) => i.id !== id));
+  onRemove(productId: string): void {
+    this.cartService.remove(productId);
   }
 }

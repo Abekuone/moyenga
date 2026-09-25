@@ -1,33 +1,23 @@
-<section class="hero">
-  <div class="hero__text">
-    <h1>Ma boutique, à portée de clic.</h1>
-    <p>Parcourez mes produits, ajoutez-les au panier et passez commande directement - je confirme tout avec vous sur WhatsApp.</p>
-    <a href="#catalogue" class="btn btn-primary hero__cta">Découvrir le catalogue</a>
-  </div>
-
-  <svg class="hero__pattern" width="320" height="320" viewBox="0 0 320 320" fill="none" aria-hidden="true">
-    <circle cx="240" cy="80" r="90" fill="rgba(236,109,15,0.14)" />
-    <circle cx="90" cy="220" r="60" fill="rgba(20,90,146,0.12)" />
-    <circle cx="260" cy="260" r="34" fill="rgba(236,109,15,0.22)" />
-  </svg>
-</section>
-
-<section class="categories" aria-label="Catégories">
-  <div class="categories__list">
-    @for (category of categories(); track category.id) {
-      <a [routerLink]="['/categories', category.slug]" class="category-chip">
-        {{ category.name }}
-      </a>
-    } @empty {
-      <p class="categories__empty">Les catégories arrivent bientôt.</p>
-    }
-  </div>
-</section>
-
 <section id="catalogue" class="catalog">
   <div class="catalog__header">
-    <h2>Nos produits</h2>
-    <p>{{ products().length }} article{{ products().length > 1 ? 's' : '' }} disponible{{ products().length > 1 ? 's' : '' }}</p>
+    <div>
+      <h2>
+        @if (searchTerm()) {
+          Résultats pour « {{ searchTerm() }} »
+        } @else if (activeCategoryName()) {
+          {{ activeCategoryName() }}
+        } @else {
+          Nos produits
+        }
+      </h2>
+      @if (!loading()) {
+        <p>{{ products().length }} article{{ products().length > 1 ? 's' : '' }} disponible{{ products().length > 1 ? 's' : '' }}</p>
+      }
+    </div>
+
+    @if (hasActiveFilters()) {
+      <button type="button" class="btn btn-outline" (click)="resetFilters()">Réinitialiser</button>
+    }
   </div>
 
   @if (loading()) {
@@ -49,8 +39,11 @@
         <path d="M3 7l3-4h12l3 4" />
         <path d="M9 11v2a3 3 0 0 0 6 0v-2" />
       </svg>
-      <h3>Aucun produit pour le moment</h3>
-      <p>Revenez bientôt, de nouveaux articles arrivent régulièrement.</p>
+      <h3>Aucun produit trouvé</h3>
+      <p>Essayez une autre recherche ou revenez au catalogue complet.</p>
+      @if (hasActiveFilters()) {
+        <button type="button" class="btn btn-primary" (click)="resetFilters()">Voir tout le catalogue</button>
+      }
     </div>
   }
 </section>

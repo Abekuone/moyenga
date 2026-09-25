@@ -1,6 +1,5 @@
 <header class="main-header">
   <div class="main-header__top">
-    <!-- Burger mobile (pure CSS, pas de state Angular requis) -->
     <input type="checkbox" id="mobile-menu-toggle" class="main-header__mobile-toggle-input" />
     <label for="mobile-menu-toggle" class="main-header__burger" aria-label="Ouvrir le menu">
       <span class="main-header__burger-icon">
@@ -12,49 +11,33 @@
         </svg>
       </span>
     </label>
-
+  
     <a routerLink="/" class="main-header__logo">Moyenga</a>
-
+  
     <div class="main-header__search-wrap">
       <form class="main-header__search" (ngSubmit)="onSearchSubmit()" autocomplete="off">
-        <input
-          type="search"
-          name="search"
-          [(ngModel)]="searchTerm"
-          placeholder="Rechercher un produit..."
-          aria-label="Rechercher un produit"
-        />
+        <input type="search" name="search" [(ngModel)]="searchTerm"
+               placeholder="Rechercher un produit..." aria-label="Rechercher un produit" />
         <button type="submit" aria-label="Lancer la recherche">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7" />
-            <path d="m21 21-4.3-4.3" />
+            <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
           </svg>
         </button>
       </form>
-
-      <!-- Dropdown "recherches récentes" : nécessite un signal recentSearches() côté composant (voir note) -->
+  
       @if (recentSearches().length) {
         <div class="main-header__search-dropdown">
           <p class="main-header__search-dropdown-title">Recherches récentes</p>
           @for (term of recentSearches(); track term) {
             <div class="main-header__search-recent-item">
-              <button
-                type="button"
-                class="main-header__search-recent-link"
-                (mousedown)="selectRecentSearch(term)"
-              >
+              <button type="button" class="main-header__search-recent-link" (mousedown)="selectRecentSearch(term)">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3 2" />
+                  <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
                 </svg>
                 <span>{{ term }}</span>
               </button>
-              <button
-                type="button"
-                class="main-header__search-recent-remove"
-                (mousedown)="removeRecentSearch(term); $event.stopPropagation()"
-                aria-label="Supprimer cette recherche"
-              >
+              <button type="button" class="main-header__search-recent-remove"
+                      (mousedown)="removeRecentSearch(term); $event.stopPropagation()" aria-label="Supprimer cette recherche">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 6l12 12M18 6L6 18" />
                 </svg>
@@ -64,35 +47,56 @@
         </div>
       }
     </div>
-
+  
+    <!-- Icônes façon Leboncoin : Mes recherches / Favoris / Messages / Compte -->
     <nav class="main-header__icons">
+      <a routerLink="/searches" routerLinkActive="is-active" class="main-header__icon-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+        </svg>
+        <span class="main-header__icon-label">Mes recherches</span>
+      </a>
+  
+      <a routerLink="/favorites" routerLinkActive="is-active" class="main-header__icon-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 20s-7-4.35-9.5-8.5C.8 8 2.5 4.5 6 4.5c2 0 3.4 1.1 4 2.3.6-1.2 2-2.3 4-2.3 3.5 0 5.2 3.5 3.5 7C19 15.65 12 20 12 20Z" />
+        </svg>
+        <span class="main-header__icon-label">Favoris</span>
+      </a>
+  
+      <a routerLink="/messages" routerLinkActive="is-active" class="main-header__icon-link">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2Z" />
+        </svg>
+        <span class="main-header__icon-label">Messages</span>
+      </a>
+  
       <a routerLink="/cart" routerLinkActive="is-active" class="main-header__icon-link">
         <span class="main-header__icon-badge-wrap">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="9" cy="21" r="1" />
-            <circle cx="19" cy="21" r="1" />
+            <circle cx="9" cy="21" r="1" /><circle cx="19" cy="21" r="1" />
             <path d="M2.5 3h2l2.5 12.5h11L21 8H6" />
           </svg>
-          @if (cartCount() > 0) {
-            <span class="main-header__badge">{{ cartCount() }}</span>
-          }
+          @if (cartCount() > 0) { <span class="main-header__badge">{{ cartCount() }}</span> }
         </span>
         <span class="main-header__icon-label">Panier</span>
       </a>
-
+  
       @if (authService.isAuthenticated()) {
         <a routerLink="/account" routerLinkActive="is-active" class="main-header__icon-link">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+            <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
           </svg>
           <span class="main-header__icon-label">Mon compte</span>
         </a>
-        <button type="button" class="btn btn-ghost main-header__logout" (click)="authService.logout()">
-          Déconnexion
-        </button>
+        <button type="button" class="btn btn-ghost main-header__logout" (click)="authService.logout()">Déconnexion</button>
       } @else {
-        <a routerLink="/auth/login" class="btn btn-primary main-header__cta">Connexion</a>
+        <a routerLink="/auth/login" class="main-header__icon-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+          </svg>
+          <span class="main-header__icon-label">Se connecter</span>
+        </a>
       }
     </nav>
   </div>

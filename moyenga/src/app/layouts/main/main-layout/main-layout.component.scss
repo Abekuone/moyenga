@@ -136,10 +136,10 @@ $bp-mobile-nav: 860px;
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: border-color 0.15s ease;
+  border-radius: var(--radius-full);
 
   &:focus-within {
-    border-color: var(--blue-primary);
-    background-color: var(--white);
+    border-radius: var(--radius-full);
   }
 
   input {
@@ -283,17 +283,16 @@ $bp-mobile-nav: 860px;
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  color: var(--gray-700);
+  color: var(--gray-900); // Leboncoin uses near-black, not muted gray
   font-family: var(--font-body);
   font-size: $font-size-xs;
   font-weight: 500;
 
   &:hover,
   &.is-active {
-    color: var(--blue-primary);
+    color: var(--orange);
   }
 }
-
 .main-header__icon-label {
   @media (max-width: $bp-mobile-nav) {
     display: none;
@@ -356,21 +355,33 @@ $bp-mobile-nav: 860px;
 // comportement Leboncoin)
 // ----------------------------------------------------------------
 .main-header__categories {
-  position: relative; // ancre le méga-menu en position absolue sous cette barre
+  position: relative;
   display: flex;
   align-items: center;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 $spacing-8;
-  overflow-x: auto;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  // ❌ remove overflow-x: auto here — it was clipping the mega-menu
+  // ❌ remove the ::-webkit-scrollbar rule tied to it
 
   @media (max-width: $bp-mobile-nav) {
     display: none;
+  }
+}
+
+// Dot separators like the Leboncoin screenshot
+.main-header__category-item:not(:last-child)::after,
+.main-header__category:not(.main-header__category ~ .main-header__category-item)::after {
+  // simpler: put the dot on the wrapping item instead
+}
+
+.main-header__category-item + .main-header__category-item {
+  margin-left: $spacing-2;
+
+  &::before {
+    content: '·';
+    margin-right: $spacing-2;
+    color: var(--gray-300);
   }
 }
 

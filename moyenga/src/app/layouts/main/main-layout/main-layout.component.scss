@@ -6,12 +6,8 @@
   min-height: 100vh;
 }
 
-// Breakpoint pivot pour passer en menu mobile (burger + panneau)
 $bp-mobile-nav: 860px;
 
-// --------------------------------------------------------------
-// Header
-// --------------------------------------------------------------
 .main-header {
   position: sticky;
   top: 0;
@@ -20,7 +16,6 @@ $bp-mobile-nav: 860px;
   border-bottom: 1px solid var(--color-border);
 }
 
-// Ligne 1 — burger, logo, recherche, icônes
 .main-header__top {
   max-width: 1280px;
   margin: 0 auto;
@@ -40,9 +35,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// --------------------------------------------------------------
-// Burger mobile (input checkbox caché + label = toggle sans JS)
-// --------------------------------------------------------------
 .main-header__mobile-toggle-input {
   position: absolute;
   opacity: 0;
@@ -112,9 +104,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// --------------------------------------------------------------
-// Recherche : champ + bouton carré accolé + dropdown "récentes"
-// --------------------------------------------------------------
 .main-header__search-wrap {
   position: relative;
   flex: 1;
@@ -264,9 +253,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// --------------------------------------------------------------
-// Icônes (panier, compte, connexion)
-// --------------------------------------------------------------
 .main-header__icons {
   display: flex;
   align-items: center;
@@ -283,7 +269,7 @@ $bp-mobile-nav: 860px;
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  color: var(--gray-900); // Leboncoin uses near-black, not muted gray
+  color: var(--gray-900);
   font-family: var(--font-body);
   font-size: $font-size-xs;
   font-weight: 500;
@@ -322,7 +308,6 @@ $bp-mobile-nav: 860px;
   line-height: 1;
 }
 
-// CTA plein, rectangulaire (pas de pill)
 .main-header__cta {
   border-radius: var(--radius-md);
   padding: 0.6rem 1.4rem;
@@ -349,11 +334,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// ----------------------------------------------------------------
-// Ligne 2 — catégories desktop : texte plat, soulignement animé
-// + méga-menu (sidebar de catégories + colonnes de sous-catégories,
-// comportement Leboncoin)
-// ----------------------------------------------------------------
 .main-header__categories {
   position: relative;
   display: flex;
@@ -361,28 +341,14 @@ $bp-mobile-nav: 860px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 $spacing-8;
-  // ❌ remove overflow-x: auto here — it was clipping the mega-menu
-  // ❌ remove the ::-webkit-scrollbar rule tied to it
 
   @media (max-width: $bp-mobile-nav) {
     display: none;
   }
 }
 
-// Dot separators like the Leboncoin screenshot
 .main-header__category-item:not(:last-child)::after,
 .main-header__category:not(.main-header__category ~ .main-header__category-item)::after {
-  // simpler: put the dot on the wrapping item instead
-}
-
-.main-header__category-item + .main-header__category-item {
-  margin-left: $spacing-2;
-
-  &::before {
-    content: '·';
-    margin-right: $spacing-2;
-    color: var(--gray-300);
-  }
 }
 
 .main-header__category {
@@ -416,7 +382,7 @@ $bp-mobile-nav: 860px;
     color: var(--blue-primary);
 
     &::after {
-      transform: scaleX(1);
+      // transform: scaleX(1);
     }
   }
 
@@ -425,7 +391,7 @@ $bp-mobile-nav: 860px;
     color: var(--blue-darker);
 
     &::after {
-      transform: scaleX(1);
+      // transform: scaleX(1);
       background-color: var(--blue-darker);
     }
   }
@@ -446,9 +412,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// Panneau ancré sous la barre de catégories (pas sous logo/recherche),
-// étendu en pleine largeur d'écran (fond blanc + ombre), avec un wrapper
-// interne qui recentre sidebar + colonnes sur la même max-width que le header.
 .main-header__megamenu {
   display: none;
   position: absolute;
@@ -541,9 +504,6 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// --------------------------------------------------------------
-// Menu mobile : overlay + panneau glissant (piloté par la checkbox)
-// --------------------------------------------------------------
 .main-header__mobile-backdrop {
   display: none;
   position: fixed;
@@ -556,27 +516,155 @@ $bp-mobile-nav: 860px;
 
 .main-header__mobile-panel {
   display: none;
+  flex-direction: column;
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: min(320px, 85vw);
+  inset: 0;
   background: var(--white);
   z-index: 36;
-  overflow-y: auto;
-  padding: $spacing-6 $spacing-4;
   transform: translateX(-100%);
   transition: transform 0.25s ease;
+}
+
+.main-header__mobile-toggle-input:checked ~ .main-header__mobile-panel {
+  display: flex;
+  transform: translateX(0);
+}
+
+.main-header__mobile-panel-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: $spacing-4;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.main-header__mobile-panel-logo {
+  font-family: var(--font-display);
+  font-size: $font-size-xl;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+.main-header__mobile-close {
+  position: absolute;
+  right: $spacing-4;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--gray-900);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--gray-100);
+  }
+}
+
+.main-header__mobile-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-2 $spacing-4 $spacing-6;
+}
+
+.main-header__mobile-section-title {
+  padding: $spacing-3 $spacing-2 $spacing-1;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--gray-500);
+}
+
+.main-header__mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: $spacing-2;
+  padding: $spacing-4 $spacing-2;
+  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: $font-size-base;
+  font-weight: 500;
+  color: var(--gray-900);
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:hover,
+  &.is-active {
+    color: var(--orange);
+  }
+}
+
+.main-header__mobile-link--strong {
+  font-weight: 700;
+}
+
+.main-header__mobile-accordion {
+  border-bottom: 1px solid var(--color-border);
+
+  .main-header__mobile-link {
+    border-bottom: none;
+  }
+
+  &[open] .main-header__mobile-accordion-icon {
+    transform: rotate(180deg);
+  }
+}
+
+.main-header__mobile-accordion-icon {
+  flex-shrink: 0;
+  color: var(--gray-500);
+  transition: transform 0.2s ease;
+}
+
+.main-header__mobile-submenu {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 $spacing-3 $spacing-3;
+}
+
+.main-header__mobile-sublink {
+  padding: $spacing-3 $spacing-2;
+  font-size: $font-size-sm;
+  color: var(--gray-700);
+
+  &:hover,
+  &.is-active {
+    color: var(--orange);
+  }
+}
+
+.main-header__mobile-account {
+  margin-top: $spacing-4;
+  padding-top: $spacing-2;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header__mobile-logout {
+  color: var(--danger);
 }
 
 .main-header__mobile-toggle-input:checked ~ .main-header__mobile-backdrop {
   display: block;
   opacity: 1;
-}
-
-.main-header__mobile-toggle-input:checked ~ .main-header__mobile-panel {
-  display: block;
-  transform: translateX(0);
 }
 
 .main-header__mobile-account {
@@ -653,16 +741,10 @@ $bp-mobile-nav: 860px;
   }
 }
 
-// --------------------------------------------------------------
-// Contenu
-// --------------------------------------------------------------
 .main-content {
   flex: 1;
 }
 
-// --------------------------------------------------------------
-// Footer
-// --------------------------------------------------------------
 .main-footer {
   background-color: var(--blue-darker);
   color: rgba($white, 0.75);

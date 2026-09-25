@@ -101,7 +101,6 @@
     </nav>
   </div>
 
-  <!-- Catégories desktop : méga-menu façon Leboncoin (sidebar + colonnes de sous-catégories) -->
   <nav class="main-header__categories" aria-label="Catégories">
     <a
       routerLink="/"
@@ -172,80 +171,62 @@
     }
   </nav>
 
-  <!-- Overlay + panneau mobile (accordéon natif <details>, sans JS additionnel) -->
   <label for="mobile-menu-toggle" class="main-header__mobile-backdrop" aria-hidden="true"></label>
 
   <nav id="mobile-nav" class="main-header__mobile-panel" aria-label="Menu mobile">
-    <div class="main-header__mobile-account">
-      @if (authService.isAuthenticated()) {
-        <a routerLink="/account" class="main-header__mobile-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="8" r="4" />
-            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
-          </svg>
-          Mon compte
-        </a>
-        <button type="button" class="btn btn-ghost main-header__mobile-logout" (click)="authService.logout()">
-          Déconnexion
-        </button>
-      } @else {
-        <a routerLink="/auth/login" class="btn btn-primary main-header__mobile-login">Connexion</a>
-      }
+    <div class="main-header__mobile-panel-header">
+      <span class="main-header__mobile-panel-logo">Moyenga</span>
+      <label for="mobile-menu-toggle" class="main-header__mobile-close" aria-label="Fermer le menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </label>
     </div>
-
-    <div class="main-header__mobile-categories">
-      <a
-        routerLink="/"
-        [queryParams]="{}"
-        class="main-header__mobile-link"
-        [class.is-active]="activeCategoryId() === null"
-      >
+  
+    <div class="main-header__mobile-scroll">
+      <p class="main-header__mobile-section-title">Catégories</p>
+  
+      <a routerLink="/" [queryParams]="{}" class="main-header__mobile-link" [class.is-active]="activeCategoryId() === null">
         Tous les produits
       </a>
-
+  
       @for (category of categories(); track category.id) {
         @if (category.children?.length) {
           <details class="main-header__mobile-accordion">
-            <summary
-              class="main-header__mobile-link"
-              [class.is-active]="activeCategoryId() === category.id"
-            >
+            <summary class="main-header__mobile-link" [class.is-active]="activeCategoryId() === category.id">
               {{ category.name }}
               <svg class="main-header__mobile-accordion-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </summary>
             <div class="main-header__mobile-submenu">
-              <a
-                routerLink="/"
-                [queryParams]="{ categoryId: category.id }"
-                class="main-header__mobile-sublink"
-              >
+              <a routerLink="/" [queryParams]="{ categoryId: category.id }" class="main-header__mobile-sublink">
                 Tout {{ category.name }}
               </a>
               @for (sub of category.children; track sub.id) {
-                <a
-                  routerLink="/"
-                  [queryParams]="{ categoryId: sub.id }"
-                  class="main-header__mobile-sublink"
-                  [class.is-active]="activeCategoryId() === sub.id"
-                >
+                <a routerLink="/" [queryParams]="{ categoryId: sub.id }" class="main-header__mobile-sublink" [class.is-active]="activeCategoryId() === sub.id">
                   {{ sub.name }}
                 </a>
               }
             </div>
           </details>
         } @else {
-          <a
-            routerLink="/"
-            [queryParams]="{ categoryId: category.id }"
-            class="main-header__mobile-link"
-            [class.is-active]="activeCategoryId() === category.id"
-          >
+          <a routerLink="/" [queryParams]="{ categoryId: category.id }" class="main-header__mobile-link" [class.is-active]="activeCategoryId() === category.id">
             {{ category.name }}
           </a>
         }
       }
+  
+      <div class="main-header__mobile-account">
+        @if (authService.isAuthenticated()) {
+          <a routerLink="/account" class="main-header__mobile-link main-header__mobile-link--strong">Mon compte</a>
+          <button type="button" class="main-header__mobile-link main-header__mobile-link--strong main-header__mobile-logout" (click)="authService.logout()">
+            Déconnexion
+          </button>
+        } @else {
+          <a routerLink="/auth/login" class="main-header__mobile-link main-header__mobile-link--strong">Se connecter</a>
+        }
+      </div>
     </div>
   </nav>
 </header>
@@ -259,7 +240,7 @@
     <div class="main-footer__brand">
       <p class="main-footer__logo">Moyenga</p>
       <p class="main-footer__tagline">
-        Ma boutique en ligne — commandez vos produits préférés, livraison organisée avec vous sur WhatsApp.
+        Commandez vos produits préférés et faites-vous livrés
       </p>
     </div>
 

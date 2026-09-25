@@ -60,7 +60,7 @@ export class CartService {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.itemsSignal()));
     } catch {
-      // stockage indisponible (navigation privée, etc.) — pas bloquant
+      //
     }
   }
 

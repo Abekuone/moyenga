@@ -2,7 +2,6 @@ import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../../core/services/cart.service';
 
-// TODO: déplacer dans environment.ts (numéro WhatsApp de la boutique, au format international sans "+")
 const WHATSAPP_NUMBER = '22670000000';
 
 @Component({
@@ -18,14 +17,12 @@ export class CartPageComponent {
   readonly items = this.cartService.items;
   readonly total = this.cartService.total;
 
-  // Construit un message pré-rempli listant le panier, pour que le client
-  // n'ait qu'à appuyer sur "Envoyer" dans WhatsApp.
   readonly whatsappLink = computed(() => {
     const lines = [
       'Bonjour, je souhaite commander :',
       '',
       ...this.items().map(
-        (item) => `• ${item.name} — x${item.quantity} (${this.formatPrice(item.price * item.quantity)})`,
+        (item) => `• ${item.name} - x${item.quantity} (${this.formatPrice(item.price * item.quantity)})`,
       ),
       '',
       `Total : ${this.formatPrice(this.total())}`,
